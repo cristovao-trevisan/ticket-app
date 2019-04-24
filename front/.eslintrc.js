@@ -19,5 +19,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    semi: ['error', 'never'],
+    'import/prefer-default-export': 0,
   },
 };

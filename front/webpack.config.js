@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: ['./src/index.jsx'],
@@ -29,4 +31,5 @@ module.exports = {
   devServer: {
     hot: true,
   },
+  devtool: !isProduction && 'source-map',
 };

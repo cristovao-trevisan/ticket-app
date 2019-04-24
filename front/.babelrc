@@ -3,5 +3,8 @@
     ["@babel/preset-env", { "targets": "> 0.25%, not dead" }],
     "@babel/preset-react"
   ],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": [
+    "react-hot-loader/babel",
+    "@babel/plugin-transform-destructuring"
+  ]
 }
