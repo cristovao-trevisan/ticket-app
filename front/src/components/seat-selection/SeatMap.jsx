@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import SeatMapPopover from './popover/PopOver'
+import eventSeatsPricingExample from '../../constants/event-seats-pricing.example'
+import SeatAreaPopoverContent from './popover/content/SeatAreaPopoverContent'
+import NumberedSeatPopoverContent from './popover/content/NumberedSeatPopoverContent'
 
 const pointToCoordinate = (point) => {
   const [, x, y] = /\((\d+) ?, ?(\d+)\)/.exec(point)
@@ -12,7 +16,7 @@ const pointToCoordinate = (point) => {
 const MAX_WIDTH = 2000
 const WIDTH_HEIGHT_RELATION = 16 / 9
 const MAX_HEIGHT = MAX_WIDTH / WIDTH_HEIGHT_RELATION
-const SEAT_RADIUS = 20
+const SEAT_RADIUS = 30
 
 const calculateDimensions = (windowDimensions) => {
   const maxWidth = windowDimensions.width * 0.8
@@ -32,7 +36,7 @@ const calculateDimensions = (windowDimensions) => {
   return { width, height, multiplier }
 }
 
-const areaDimensionsStyle = ({ locationStart, locationEnd, multiplier }) => {
+const areaDimensions = ({ locationStart, locationEnd, multiplier }) => {
   const [xi, yi] = pointToCoordinate(locationStart)
   const [xf, yf] = pointToCoordinate(locationEnd)
   const left = xi * multiplier
@@ -40,18 +44,25 @@ const areaDimensionsStyle = ({ locationStart, locationEnd, multiplier }) => {
   const width = (xf - xi) * multiplier
   const height = (yf - yi) * multiplier
   return {
-    left, top, width, height,
+    popoverPosition: { top, left: left + width / 2 },
+    style: {
+      left, top, width, height,
+    },
   }
 }
 
-const numberedSeatDimensionsStyle = ({ location, multiplier }) => {
+const numberedSeatDimensions = ({ location, multiplier }) => {
   const [x, y] = pointToCoordinate(location)
   const radius = SEAT_RADIUS * multiplier
   const left = x * multiplier - radius
   const top = y * multiplier - radius
   const size = radius * 2
+
   return {
-    left, top, width: size, height: size,
+    popoverPosition: { top, left: left + radius },
+    style: {
+      left, top, width: size, height: size,
+    },
   }
 }
 
@@ -85,14 +96,27 @@ const NumberedSeat = styled.div`
 
 const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
   const dimensions = useSelector(state => state.dimensions)
+  const [hoveredSeat, setHoveredSeat] = useState(null)
+  const [selectedSeat, setSelectedSeatState] = useState(null)
+  const setSelectedSeat = state => (e) => {
+    e.stopPropagation()
+    setSelectedSeatState(state)
+  }
+  const popoverSeat = selectedSeat || hoveredSeat
+
   const { width, height, multiplier } = calculateDimensions(dimensions)
+  // this must be set so popover doesn't go over item
+  const zIndex = (id) => {
+    if (!popoverSeat) return 0
+    return popoverSeat.id === id ? 1 : 0
+  }
 
   const FixtureAreas = fixtureAreas.map(({
     id, name, locationStart, locationEnd,
   }) => (
     <FixtureArea
       key={id}
-      style={areaDimensionsStyle({ locationEnd, locationStart, multiplier })}
+      style={areaDimensions({ locationEnd, locationStart, multiplier }).style}
     >
       { name }
     </FixtureArea>
@@ -100,29 +124,65 @@ const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
 
   const SeatAreas = seatAreas.map(({
     id, name, locationStart, locationEnd,
-  }) => (
-    <SeatArea
-      key={id}
-      style={areaDimensionsStyle({ locationEnd, locationStart, multiplier })}
-    >
-      { name }
-    </SeatArea>
-  ))
+  }) => {
+    const { style, popoverPosition } = areaDimensions({ locationEnd, locationStart, multiplier })
+    const popoverContent = (
+      <SeatAreaPopoverContent
+        name={name}
+        seat={id}
+        pricings={eventSeatsPricingExample}
+      />
+    )
+    const popoverInfo = { id, popoverPosition, popoverContent }
+    return (
+      <SeatArea
+        key={id}
+        style={style}
+        onMouseEnter={() => setHoveredSeat(popoverInfo)}
+        onMouseLeave={() => setHoveredSeat(null)}
+        onClick={setSelectedSeat(popoverInfo)}
+      >
+        { name }
+      </SeatArea>
+    )
+  })
 
   const NumberedSeats = numberedSeats.map(({
-    id, number, location, reserved, occupied,
-  }) => (
-    <NumberedSeat
-      key={id}
-      style={numberedSeatDimensionsStyle({ location, multiplier })}
-    />
-  ))
+    id, number, location, // reserved, occupied,
+  }) => {
+    const { style, popoverPosition } = numberedSeatDimensions({ location, multiplier })
+    const popoverContent = (
+      <NumberedSeatPopoverContent
+        number={number}
+        seat={id}
+        pricings={eventSeatsPricingExample}
+      />
+    )
+    const popoverInfo = { id, popoverPosition, popoverContent }
+    return (
+      <NumberedSeat
+        key={id}
+        style={{ ...style, zIndex: zIndex(id) }}
+        onMouseEnter={() => setHoveredSeat(popoverInfo)}
+        onMouseLeave={() => setHoveredSeat(null)}
+        onClick={setSelectedSeat(popoverInfo)}
+      />
+    )
+  })
 
   return (
-    <Container style={{ width, height }}>
+    <Container
+      style={{ width, height }}
+      onClick={setSelectedSeat(null)}
+    >
       { FixtureAreas }
       { SeatAreas }
       { NumberedSeats }
+      {popoverSeat && (
+        <SeatMapPopover {...popoverSeat.popoverPosition}>
+          { popoverSeat.popoverContent }
+        </SeatMapPopover>
+      )}
     </Container>
   )
 }

@@ -6,14 +6,11 @@ import App from './App'
 import store from './store'
 import { onDimensionChange } from './reducers/dimensions'
 import { setWindowDimensions } from './actions'
-import SeatMap from './components/seat-selection/SeatMap'
-import eventSeatsExample from './constants/event-seats.example'
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <App />
-      <SeatMap {...eventSeatsExample} />
     </Provider>,
     document.getElementById('root'),
   )
