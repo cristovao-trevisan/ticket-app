@@ -16,6 +16,7 @@ const NumberedSeat = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: pointer;
 `
 const numberedSeatDimensions = ({ location, multiplier }) => {
   const [x, y] = pointToCoordinate(location)
