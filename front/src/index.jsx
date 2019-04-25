@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
-import App from './App'
+import App from './components/App'
 import store from './store'
 import { onDimensionChange } from './reducers/dimensions'
 import { setWindowDimensions } from './actions'
@@ -19,7 +19,7 @@ const render = () => {
 render()
 
 if (module.hot) {
-  module.hot.accept('./App', () => { render() })
+  module.hot.accept('./components/App', () => { render() })
 }
 
 onDimensionChange(dimensions => store.dispatch(setWindowDimensions(dimensions)))
