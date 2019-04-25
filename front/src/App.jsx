@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import SeatMap from './components/seat-selection/SeatMap'
+import SeatMap from './components/seat-selection/seat-map/SeatMap'
 import eventSeatsExample from './constants/event-seats.example'
 
 const Title = styled.div`
