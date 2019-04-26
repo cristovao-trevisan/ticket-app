@@ -1,7 +1,15 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production'
+
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: './src/index.ejs',
+  }),
+]
+if (process.env.BUNDLE_ANALYSER) plugins.push(new BundleAnalyzerPlugin())
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -23,13 +31,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.ejs',
-    }),
-  ],
+  plugins,
   devServer: {
+    historyApiFallback: true,
     hot: true,
   },
   devtool: !isProduction && 'source-map',
-};
+}
