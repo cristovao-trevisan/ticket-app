@@ -1,12 +1,23 @@
 import React from 'react'
 import ReactLoading from 'react-loading'
+import styled from 'styled-components'
 import { spinner } from '../../constants/colors'
 
+const FullContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export default () => (
-  <ReactLoading
-    type="spin"
-    color={spinner}
-    height="20%"
-    width="20%"
-  />
+  <FullContainer>
+    <ReactLoading
+      type="spin"
+      color={spinner}
+      height="60px"
+      width="60px"
+    />
+  </FullContainer>
 )

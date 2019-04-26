@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
+    "babel-plugin-styled-components",
     "@babel/plugin-transform-destructuring",
     "@babel/plugin-syntax-dynamic-import"
   ]

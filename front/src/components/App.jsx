@@ -7,11 +7,14 @@ import eventSeatsExample from '../constants/event-seats.example'
 import Toolbar from './toolbar/Toolbar'
 import Sidebar from './sidebar/Sidebar'
 import Loadable from './load/Loadable'
+import Loader from './load/Loader'
 
 const SeatMap = Loadable(() => import('./seat-selection/seat-map/SeatMap'))
 const SignIn = Loadable(() => import('./auth/SignIn'))
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

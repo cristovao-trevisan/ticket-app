@@ -7,8 +7,8 @@ import { FlatIconButton } from '../common/buttons/FlatButtons'
 const Container = styled.div`
   text-align: center;
   padding: 8px;
-  margin-bottom: 80px;
-  width: 100%;
+  margin-bottom: 24px;
+  width: calc(100% - 16px); /* Discount padding */
   border-bottom: 1px solid black;
   position: relative;
 `
