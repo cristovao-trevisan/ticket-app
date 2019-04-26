@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import ReactSidebar from 'react-sidebar'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { useRedux } from 'react-redux'
 
 import eventSeatsExample from '../constants/event-seats.example'
 import Toolbar from './toolbar/Toolbar'
 import Sidebar from './sidebar/Sidebar'
 import Loadable from './load/Loadable'
-import Loader from './load/Loader'
+import { setSidebarOpen as setSidebarOpenAction } from '../actions'
 
 const SeatMap = Loadable(() => import('./seat-selection/seat-map/SeatMap'))
 const SignIn = Loadable(() => import('./auth/SignIn'))
@@ -21,12 +22,15 @@ const Container = styled.div`
 `
 
 const App = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useRedux(
+    state => state.sidebarOpen,
+    open => setSidebarOpenAction(open),
+  )
 
   return (
     <BrowserRouter>
       <ReactSidebar
-        sidebar={<Sidebar />}
+        sidebar={<Sidebar setSidebarOpen={setSidebarOpen} />}
         open={sidebarOpen}
         onSetOpen={setSidebarOpen}
       >

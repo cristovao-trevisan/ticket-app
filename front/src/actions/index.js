@@ -8,3 +8,7 @@ export const setLoginState = state => ({
   type: types.SET_LOGIN_STATE,
   state,
 })
+export const setSidebarOpen = (open = false) => ({
+  type: types.SET_SIDEBAR_OPEN,
+  open,
+})
