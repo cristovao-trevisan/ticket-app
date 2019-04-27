@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { auth } from 'firebase/app'
 import { useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import shadows from '../../styles/shadows'
@@ -37,6 +37,7 @@ const SignIn = ({ redirect, redirectUrl, children, location }) => {
   const login = useSelector(state => state.login)
   if (login.loading) return <FullLoader />
   if (login.data && location.pathname === '/signin') return <Redirect to="/" />
+
   const redirectConfig = redirect
     ? { signInSuccessUrl: redirectUrl }
     : { callbacks: { signInSuccessWithAuthResult: () => null } }
@@ -67,4 +68,4 @@ SignIn.defaultProps = {
   redirectUrl: '/',
 }
 
-export default SignIn
+export default withRouter(SignIn)
