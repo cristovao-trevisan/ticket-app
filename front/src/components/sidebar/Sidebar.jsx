@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LoginInformation from './login-information/LoginInformation'
+import Router from './routes/Router'
 
 const Container = styled.div`
   background-color: white;
@@ -11,6 +12,7 @@ const Container = styled.div`
 const Sidebar = () => (
   <Container>
     <LoginInformation />
+    <Router />
   </Container>
 )
 

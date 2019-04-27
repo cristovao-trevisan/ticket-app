@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { MdMenu } from 'react-icons/md'
 import { Link } from 'react-router-dom'
-import { FlatIconButton } from '../common/buttons/FlatButtons'
+import { FlatIconButton } from '../common/buttons'
 import { signature } from '../../constants/colors'
 
 const Container = styled.div`

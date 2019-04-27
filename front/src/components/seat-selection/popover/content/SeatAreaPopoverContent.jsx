@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import contentPropTypes from './prop-types'
 import { Title, PriceContainer, PriceValue, PriceName } from './styles'
 
+// Reserve seat by word click, remove all with x at right
+
 const SeatAreaPopoverContent = ({ seat, pricings, name }) => {
   const { pricing } = pricings.find(p => p.seat === seat)
 

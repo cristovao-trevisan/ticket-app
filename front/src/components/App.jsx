@@ -8,8 +8,8 @@ import Toolbar from './toolbar/Toolbar'
 import Sidebar from './sidebar/Sidebar'
 import Loadable from './load/Loadable'
 import { setSidebarOpen as setSidebarOpenAction } from '../actions'
+import menuRoutes from '../menu-routes'
 
-const SeatSelection = Loadable(() => import('./seat-selection/SeatSelection'))
 const SignIn = Loadable(() => import('./auth/SignIn'))
 
 const Container = styled.div`
@@ -37,7 +37,9 @@ const App = () => {
           <Toolbar setSidebarOpen={setSidebarOpen} />
           <Switch>
             <Route path="/signin" component={SignIn} />
-            <Route path="/" component={SeatSelection} />
+            {menuRoutes.map(({ path, component }) => (
+              <Route key={path} path={path} component={Loadable(component)} />
+            ))}
           </Switch>
         </Container>
       </ReactSidebar>

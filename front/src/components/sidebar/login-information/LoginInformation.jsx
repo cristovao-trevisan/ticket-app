@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import UnLoggedContent from './UnLoggedContent'
 import LoggedContent from './LoggedContent'
 import { Loader } from '../../load/Loader'
-import { signature } from '../../../constants/colors'
+import { signature, purple } from '../../../constants/colors'
 
 
 const Container = styled.div`
@@ -24,7 +24,7 @@ const Container = styled.div`
 
 const Content = () => {
   const login = useSelector(state => state.login)
-  if (login.loading) return <Loader />
+  if (login.loading) return <Loader size={20} color={purple[2]} />
   if (!login.data) return <UnLoggedContent />
   return <LoggedContent />
 }

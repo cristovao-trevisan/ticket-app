@@ -4,9 +4,8 @@ import styled from 'styled-components'
 import { auth } from 'firebase/app'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 
-import { FlatButton } from '../../common/buttons/FlatButtons'
+import { FlatButton, RaisedButton } from '../../common/buttons'
 import { purple } from '../../../constants/colors'
-import { RaisedButton } from '../../common/buttons/RaisedButtons'
 import { setSidebarOpen } from '../../../actions'
 
 const Container = styled.div`
