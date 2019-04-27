@@ -3,6 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const isProduction = process.env.NODE_ENV === 'production'
+const useMocks = process.env.USE_MOCKS && !isProduction
+
+const alias = !useMocks ? undefined : {
+  './resources/resources': path.resolve('./src/resources/__mocks__/resources'),
+}
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -30,6 +35,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias,
   },
   plugins,
   devServer: {
