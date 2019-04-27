@@ -3,5 +3,6 @@
     "firebaseui",
     "pricings",
     "signin"
-  ]
+  ],
+  "eslint.enable": true
 }

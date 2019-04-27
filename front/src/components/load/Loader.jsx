@@ -10,14 +10,17 @@ const FullContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
+export const Loader = () => (
+  <ReactLoading
+    type="spin"
+    color={spinner}
+    height="60px"
+    width="60px"
+  />
+)
 
-export default () => (
+export const FullLoader = () => (
   <FullContainer>
-    <ReactLoading
-      type="spin"
-      color={spinner}
-      height="60px"
-      width="60px"
-    />
+    <Loader />
   </FullContainer>
 )

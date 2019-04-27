@@ -4,9 +4,9 @@ export const setWindowDimensions = dimensions => ({
   type: types.SET_WINDOW_DIMENSIONS,
   ...dimensions,
 })
-export const setLoginState = state => ({
+export const setLoginState = data => ({
   type: types.SET_LOGIN_STATE,
-  state,
+  data,
 })
 export const setSidebarOpen = (open = false) => ({
   type: types.SET_SIDEBAR_OPEN,

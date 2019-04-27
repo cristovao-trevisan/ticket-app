@@ -2,8 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { auth } from 'firebase/app'
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import shadows from '../../styles/shadows'
+import { FullLoader } from '../load/Loader'
 
 const Container = styled.div`
   ${shadows[1]}
@@ -29,10 +33,13 @@ const uiConfig = {
   ],
 }
 
-const SignIn = ({ redirect, redirectUrl, children }) => {
+const SignIn = ({ redirect, redirectUrl, children, location }) => {
+  const login = useSelector(state => state.login)
+  if (login.loading) return <FullLoader />
+  if (login.data && location.pathname === '/signin') return <Redirect to="/" />
   const redirectConfig = redirect
     ? { signInSuccessUrl: redirectUrl }
-    : { callbacks: { signInSuccess: () => null } }
+    : { callbacks: { signInSuccessWithAuthResult: () => null } }
   const config = {
     ...uiConfig,
     ...redirectConfig,
@@ -50,6 +57,9 @@ SignIn.propTypes = {
   children: PropTypes.node,
   redirect: PropTypes.bool,
   redirectUrl: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 }
 SignIn.defaultProps = {
   children: null,

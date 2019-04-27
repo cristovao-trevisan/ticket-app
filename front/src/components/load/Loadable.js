@@ -1,9 +1,9 @@
 import loadable from 'react-loadable'
-import Loader from './Loader'
+import { FullLoader } from './Loader'
 
 const Loadable = component => loadable({
   loader: component,
-  loading: Loader,
+  loading: FullLoader,
 })
 
 export default Loadable

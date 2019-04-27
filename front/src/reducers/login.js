@@ -3,10 +3,14 @@ import 'firebase/auth'
 import { SET_LOGIN_STATE } from '../constants/action-types'
 import { setLoginState } from '../actions'
 
+const initialState = {
+  loading: true,
+  data: null,
+}
 
-export default (state = null, action) => {
-  switch (action.type) {
-    case SET_LOGIN_STATE: return action.state
+export default (state = initialState, { type, data }) => {
+  switch (type) {
+    case SET_LOGIN_STATE: return { loading: false, data }
     default: return state
   }
 }

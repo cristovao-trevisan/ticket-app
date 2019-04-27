@@ -3,14 +3,19 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { MdMenu } from 'react-icons/md'
 import { FlatIconButton } from '../common/buttons/FlatButtons'
+import { signature } from '../../constants/colors'
 
 const Container = styled.div`
-  text-align: center;
-  padding: 8px;
-  margin-bottom: 24px;
-  width: calc(100% - 16px); /* Discount padding */
-  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  margin-bottom: 24px;
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid black;
+  background-color: ${signature};
+  color: white;
 `
 
 const Title = styled.div`
@@ -20,11 +25,13 @@ const Title = styled.div`
 const MenuButton = styled(FlatIconButton)`
   position: absolute;
   left: 24px;
+  color: white;
+  font-size: 24px;
 `
 
 const Toolbar = ({ setSidebarOpen }) => (
   <Container>
-    <MenuButton onClick={() => setSidebarOpen(true)}>
+    <MenuButton size={24} onClick={() => setSidebarOpen(true)}>
       <MdMenu />
     </MenuButton>
     <Title> Ticket App </Title>
