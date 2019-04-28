@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import SeatAreaPopoverContent from '../../popover/content/SeatAreaPopoverContent'
 import { areaDimensions } from './commom'
-import eventSeatsPricingExample from '../../../../constants/event-seats-pricing.example'
 
 const SeatArea = styled.div`
   background-color: yellow;
@@ -21,14 +20,9 @@ const seatAreaMapper = ({
   id, name, locationStart, locationEnd,
 }) => {
   const { style, popoverPosition } = areaDimensions({ locationEnd, locationStart, multiplier })
-  const popoverContent = (
-    <SeatAreaPopoverContent
-      name={name}
-      seat={id}
-      pricings={eventSeatsPricingExample}
-    />
-  )
+  const popoverContent = <SeatAreaPopoverContent name={name} seat={id} />
   const popoverInfo = { id, popoverPosition, popoverContent }
+
   return (
     <SeatArea
       key={id}

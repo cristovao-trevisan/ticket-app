@@ -2,7 +2,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import eventSeatsPricingExample from '../../../../constants/event-seats-pricing.example'
 import NumberedSeatPopoverContent from '../../popover/content/NumberedSeatPopoverContent'
 import { pointToCoordinate } from './commom'
 
@@ -42,14 +41,9 @@ const numberedSeatMapper = ({
   // z-index must be set so popover doesn't go over item
   const zIndex = (!popoverSeat || popoverSeat.id !== id) ? 0 : 1
   const { style, popoverPosition } = numberedSeatDimensions({ location, multiplier })
-  const popoverContent = (
-    <NumberedSeatPopoverContent
-      number={number}
-      seat={id}
-      pricings={eventSeatsPricingExample}
-    />
-  )
+  const popoverContent = <NumberedSeatPopoverContent number={number} seat={id} />
   const popoverInfo = { id, popoverPosition, popoverContent }
+
   return (
     <NumberedSeat
       key={id}
