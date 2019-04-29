@@ -29,7 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ReactSidebar
-        sidebar={<Sidebar setSidebarOpen={setSidebarOpen} />}
+        sidebar={<Sidebar />}
         open={sidebarOpen}
         onSetOpen={setSidebarOpen}
       >
@@ -37,7 +37,7 @@ const App = () => {
           <Toolbar setSidebarOpen={setSidebarOpen} />
           <Switch>
             <Route path="/signin" component={SignIn} />
-            {menuRoutes.map(({ path, component }) => (
+            {menuRoutes.reverse().map(({ path, component }) => (
               <Route key={path} path={path} component={Loadable(component)} />
             ))}
           </Switch>

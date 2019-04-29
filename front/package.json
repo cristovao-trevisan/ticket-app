@@ -34,6 +34,7 @@
     "react-redux": "^7.1.0-alpha.1",
     "react-router-dom": "^5.0.0",
     "react-sidebar": "^3.0.2",
+    "react-tooltip": "^3.10.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "styled-components": "^4.2.0",
