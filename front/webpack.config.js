@@ -42,5 +42,5 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
   },
-  devtool: !isProduction && 'source-map',
+  devtool: !isProduction && 'eval-source-map',
 }

@@ -5,6 +5,7 @@ import { MdMenu } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { FlatIconButton } from '../common/buttons'
 import { signature } from '../../constants/colors'
+import shadows from '../../styles/shadows'
 
 const Container = styled.div`
   display: flex;
@@ -14,8 +15,8 @@ const Container = styled.div`
   margin-bottom: 24px;
   height: 40px;
   width: 100%;
-  border-bottom: 1px solid black;
   background-color: ${signature};
+  ${shadows[0]}
   color: white;
 `
 

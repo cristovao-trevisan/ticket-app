@@ -6,8 +6,10 @@ import ReactTooltip from 'react-tooltip'
 const Container = styled.div`
   width: 80%;
   max-width: 400px;
+  max-height: 300px;
 `
 const Image = styled.img`
+  object-fit: cover;
   border-radius: 32px;
   width: 100%;
 `

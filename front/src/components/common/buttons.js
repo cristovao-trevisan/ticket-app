@@ -13,11 +13,14 @@ export const flatStyle = css`
   font-size: ${props => props.size}px;
   background: transparent;
   cursor: pointer;
-
-  :hover { background-color: #fff2 }
+  position: relative;
+  
+  :hover {
+    opacity: 0.6;
+  }
   :active {
     opacity: 0.3;
-    border: 1px solid #0002;
+    border: 1px solid #6664;
   }
 `
 
@@ -28,7 +31,6 @@ export const iconStyle = css`
   height: ${props => props.size + 10}px;
   border-radius: 50%;
 `
-
 
 export const raisedStyle = css`
   border-radius: 4px;

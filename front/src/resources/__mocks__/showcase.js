@@ -5,5 +5,5 @@ export default [{
 }, {
   id: 2,
   name: 'The Beatles: return',
-  image: 'https://cdn.pixabay.com/photo/2014/10/30/08/49/the-beatles-509069_960_720.jpg',
+  image: 'https://images.freeimages.com/images/large-previews/c37/rock-1577380.jpg',
 }]

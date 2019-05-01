@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 48px;
 `
 const ArrowRight = styled(MdPlayArrow)`
   font-size: 48px;

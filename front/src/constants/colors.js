@@ -15,3 +15,13 @@ export const vacant = blue[2]
 export const reserved = yellow[2]
 export const occupied = red[2]
 export const selected = green[2]
+
+
+export const tagChips = [
+  { border: blue[0], background: blue[2] },
+  { border: green[0], background: green[2] },
+  { border: red[0], background: red[2] },
+  { border: yellow[0], background: yellow[2] },
+  { border: orange[0], background: orange[2] },
+  { border: purple[0], background: purple[2] },
+]

@@ -6,12 +6,14 @@ import './resources/resources'
 import dimensions from './reducers/dimensions'
 import login from './reducers/login'
 import sidebarOpen from './reducers/sidebar-open'
+import search from './reducers/search'
 
 const store = createStore(combineReducers({
   ...resourceReducers,
   dimensions,
   login,
   sidebarOpen,
+  search,
 }), composeWithDevTools())
 
 applyResourceToStore(store)
