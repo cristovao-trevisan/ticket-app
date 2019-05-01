@@ -13,6 +13,7 @@ const Container = styled.div`
   width: 80%;
   flex-wrap: wrap;
   margin-top: 32px;
+  max-width: 550px;
 `
 
 const TopTags = ({ tags }) => (

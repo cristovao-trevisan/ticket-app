@@ -8,11 +8,16 @@ import { FlatButton } from '../../common/buttons'
 import { commitSearchValue } from '../../../actions'
 import { tagChips as colors } from '../../../constants/colors'
 
-const Container = styled(FlatButton)`
+const Container = styled.div`
+  margin: 8px;
+  flex: 0 0 22%;
+  display: flex;
+  justify-content: center;
+`
+const Button = styled(FlatButton)`
   width: 80px;
   height: 40px;
   padding: 2px;
-  margin: 8px;
   background-color: ${props => props.background};
   border: 1px solid ${props => props.border};
   color: black;
@@ -28,8 +33,10 @@ const getChipColors = index => colors[index % colors.length]
 const Tag = ({ title, history, index }) => {
   const setSearch = useActions(value => commitSearchValue(value, history))
   return (
-    <Container onClick={() => setSearch(`#${title}`)} {...getChipColors(index)}>
-      #{ title }
+    <Container>
+      <Button onClick={() => setSearch(`#${title}`)} {...getChipColors(index)}>
+        #{ title }
+      </Button>
     </Container>
   )
 }
