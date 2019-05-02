@@ -1,0 +1,26 @@
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "functions/index.js",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "deploy": "firebase deploy --only functions:authGateway",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/got": "^9.4.4",
+    "firebase-tools": "^6.7.2"
+  },
+  "dependencies": {
+    "firebase-admin": "^7.3.0",
+    "firebase-functions": "^2.3.0",
+    "got": "^9.6.0",
+    "query-string": "^6.5.0"
+  }
+}
