@@ -44,6 +44,8 @@ function parseRequestInfo(method, request, email, uid) {
 
 
 exports.authGateway = functions.https.onRequest(async (request, response) => {
+  response.set('Access-Control-Allow-Origin', '*') // enable cors
+
   try {
     if (isUrlOpen(request.url)) {
       return makeRequest(request.url, request.method, request.body, response)
