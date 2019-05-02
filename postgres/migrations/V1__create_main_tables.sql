@@ -99,7 +99,13 @@ CREATE TABLE "Pricings" (
   name VARCHAR(127),
   description VARCHAR (255),
   price DECIMAL(11, 4),
-  seat INT NOT NULL -- REFERENCES "Seats"(id) -- Can't use reference together with inheritance
+  event INT REFERENCES "Events"(id)
+);
+
+CREATE TABLE "SeatsPricings" (
+  pricing INT NOT NULL REFERENCES "Pricings"(id),
+  seat INT NOT NULL, -- REFERENCES "Seats"(id) -- Can't use reference together with inheritance
+    PRIMARY KEY (pricing, seat)
 );
 
 -- Event extra data

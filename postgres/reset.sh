@@ -1,6 +1,6 @@
 # clean
-flyway -configFiles=./db/flyway.dev.conf clean
+flyway -configFiles=./flyway.dev.conf clean
 # migrate
-flyway -configFiles=./db/flyway.dev.conf migrate
+flyway -configFiles=./flyway.dev.conf migrate
 # populate
-flyway -configFiles=./db/flyway.dev.conf -locations=filesystem:./db/fixture migrate
+flyway -configFiles=./flyway.dev.conf -locations=filesystem:./fixture migrate

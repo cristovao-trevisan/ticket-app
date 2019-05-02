@@ -74,23 +74,30 @@ INSERT INTO "SeatFixtureAreas" (event, name, "locationStart", "locationEnd")
   FROM "ShowHouseFixtureAreas"
   WHERE "showHouse" = 1;
 
+INSERT INTO "Pricings" (id, name, price, event) VALUES
+  (1, 'Full Ticket', 20, 1),
+  (2, 'Student Ticket', 15, 1),
+  (3, 'Full Ticket', 40, 1),
+  (4, 'Student Ticket', 25, 1)
+;
+
 -- Seat area pricings
-INSERT INTO "Pricings" (seat, price, name)
-  SELECT id AS seat, 20.00 AS price, 'Full Ticket' AS name
+INSERT INTO "SeatsPricings" (seat, pricing)
+  SELECT id AS seat, 1 AS pricing
   FROM "SeatAreas"
   WHERE event = 1;
-INSERT INTO "Pricings" (seat, price, name)
-  SELECT id AS seat, 15.00 AS price, 'Student Ticket'
+INSERT INTO "SeatsPricings" (seat, pricing)
+  SELECT id AS seat, 2 AS pricing
   FROM "SeatAreas"
   WHERE event = 1;
 
 -- Numbered seat pricings
-INSERT INTO "Pricings" (seat, price, name)
-  SELECT id AS seat, 40.00 AS price, 'Full Ticket' AS name
+INSERT INTO "SeatsPricings" (seat, pricing)
+  SELECT id AS seat, 3 AS pricing
   FROM "NumberedSeats"
   WHERE event = 1;
-INSERT INTO "Pricings" (seat, price, name)
-  SELECT id AS seat, 25.00 AS price, 'Student Ticket'
+INSERT INTO "SeatsPricings" (seat, pricing)
+  SELECT id AS seat, 4 AS pricing
   FROM "NumberedSeats"
   WHERE event = 1;
 

@@ -1,1 +1,1 @@
-flyway -configFiles=./db/flyway.dev.conf migrate
+flyway -configFiles=./flyway.dev.conf migrate
