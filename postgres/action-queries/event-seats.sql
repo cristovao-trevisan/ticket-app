@@ -38,6 +38,25 @@ WITH
       )) AS "numberedSeats"
     FROM "NumberedSeats"
     GROUP BY event
+  ),
+  pricings AS (
+    SELECT
+      event,
+      JSON_AGG(JSON_BUILD_OBJECT(
+        'seat', seat,
+        'pricing', pricing
+      )) AS pricings
+    FROM (
+      SELECT
+        seat.event,
+        seat.id AS seat,
+        ARRAY_AGG(seatPricing.pricing) AS "pricing"
+      FROM "Seats" seat
+      INNER JOIN "SeatsPricings" seatPricing
+        ON seatPricing.seat = seat.id
+      GROUP BY 1,2
+    ) pricing
+    GROUP BY 1
   )
 
 SELECT
@@ -45,11 +64,13 @@ SELECT
   event.description,
   "fixtureAreas",
   "seatAreas",
-  "numberedSeats"
+  "numberedSeats",
+  pricings.pricings
 FROM "Events" AS event
 LEFT JOIN fixtureAreas ON fixtureAreas.event = event.id
 LEFT JOIN seatAreas ON seatAreas.event = event.id
 LEFT JOIN numberedSeats ON numberedSeats.event = event.id
+LEFT JOIN pricings ON pricings.event = event.id
 
 WHERE event.id = 1
 ;
