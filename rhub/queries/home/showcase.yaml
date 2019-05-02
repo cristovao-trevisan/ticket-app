@@ -1,0 +1,4 @@
+id: showcase
+scope: home
+serviceAccountId: amazon-postgres-rds
+query: SELECT * FROM "Events" LIMIT 5;

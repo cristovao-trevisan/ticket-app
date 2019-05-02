@@ -1,0 +1,11 @@
+{
+  "events": {
+    "folder": "events"
+  },
+  "listeners": {
+    "folder": "listeners"
+  },
+  "queries": {
+    "folder": "queries"
+  }
+}
