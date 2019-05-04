@@ -1,37 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NamespacedResource } from '@async-resource/react-redux'
 import { Title, PriceContainer, PriceValue, PriceName } from './styles'
-import { Loader } from '../../../load/Loader'
+import withPricing from './withPricing'
 
 // reserve/un-reserve with word click
 
-const NumberedSeatPopoverContent = ({ seat, number }) => (
+const NumberedSeatPopoverContent = ({ number, pricing }) => (
   <>
     <Title> Seat #{ number } </Title>
-    <NamespacedResource
-      id="eventSeatsPricing"
-      namespace={seat}
-      render={(resource) => {
-        if (resource.loading) return <Loader />
-        if (resource.loaded) {
-          const { pricing } = resource.data
-          return pricing.map(({ id, name, price }) => (
-            <PriceContainer key={id}>
-              <PriceValue> ${price.toFixed(2)} </PriceValue>
-              <PriceName> - {name} </PriceName>
-            </PriceContainer>
-          ))
-        }
-        return <div> Error </div>
-      }}
-    />
+    {pricing.map(({ id, name, price }) => (
+      <PriceContainer key={id}>
+        <PriceValue> ${price.toFixed(2)} </PriceValue>
+        <PriceName> - {name} </PriceName>
+      </PriceContainer>
+    ))}
   </>
 )
 
 NumberedSeatPopoverContent.propTypes = {
-  seat: PropTypes.number.isRequired,
   number: PropTypes.string.isRequired,
+  pricing: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
 }
 
-export default NumberedSeatPopoverContent
+export default withPricing(NumberedSeatPopoverContent)

@@ -40,6 +40,7 @@ const Container = styled.div`
 
 // Main component
 const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
+  const event = 1
   // state and redux variables
   const dimensions = useSelector(state => state.dimensions)
   const [hoveredSeat, setHoveredSeat] = useState(null)
@@ -53,12 +54,11 @@ const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
   // calculate responsive dimensions
   const { width, height, multiplier } = calculateDimensions(dimensions)
 
-  // generate map items
+  // generate items
+  const mappingData = { multiplier, setHoveredSeat, setSelectedSeat, popoverSeat, event }
   const FixtureAreas = fixtureAreas.map(fixtureAreaMapper({ multiplier }))
-  const SeatAreas = seatAreas.map(seatAreaMapper({ multiplier, setHoveredSeat, setSelectedSeat }))
-  const NumberedSeats = numberedSeats.map(
-    numberedSeatMapper({ multiplier, setHoveredSeat, setSelectedSeat, popoverSeat }),
-  )
+  const SeatAreas = seatAreas.map(seatAreaMapper(mappingData))
+  const NumberedSeats = numberedSeats.map(numberedSeatMapper(mappingData))
 
   return (
     <Container

@@ -15,12 +15,12 @@ const SeatArea = styled.div`
 `
 
 const seatAreaMapper = ({
-  multiplier, setHoveredSeat, setSelectedSeat,
+  multiplier, setHoveredSeat, setSelectedSeat, event,
 }) => ({
   id, name, locationStart, locationEnd,
 }) => {
   const { style, popoverPosition } = areaDimensions({ locationEnd, locationStart, multiplier })
-  const popoverContent = <SeatAreaPopoverContent name={name} seat={id} />
+  const popoverContent = <SeatAreaPopoverContent name={name} seat={id} event={event} />
   const popoverInfo = { id, popoverPosition, popoverContent }
 
   return (

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@async-resource/core": "^0.2.0",
-    "@async-resource/react-redux": "^0.2.1",
+    "@async-resource/react-redux": "^0.2.2",
     "@async-resource/redux": "^0.2.1",
     "@babel/core": "^7.4.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",

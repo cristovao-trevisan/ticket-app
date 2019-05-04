@@ -34,14 +34,14 @@ const numberedSeatDimensions = ({ location, multiplier }) => {
 
 
 const numberedSeatMapper = ({
-  multiplier, setHoveredSeat, setSelectedSeat, popoverSeat,
+  multiplier, setHoveredSeat, setSelectedSeat, popoverSeat, event,
 }) => ({
   id, number, location,
 }) => {
   // z-index must be set so popover doesn't go over item
   const zIndex = (!popoverSeat || popoverSeat.id !== id) ? 0 : 1
   const { style, popoverPosition } = numberedSeatDimensions({ location, multiplier })
-  const popoverContent = <NumberedSeatPopoverContent number={number} seat={id} />
+  const popoverContent = <NumberedSeatPopoverContent number={number} seat={id} event={event} />
   const popoverInfo = { id, popoverPosition, popoverContent }
 
   return (
