@@ -4,6 +4,7 @@ import eventSeats from './event-seats'
 import eventInfo from './event-info'
 import showcase from './showcase'
 import topTags from './top-tags'
+import { getRandomEvents } from './events'
 
 registerNamespacedResource('eventSeats', {
   source: async () => eventSeats,
@@ -19,4 +20,8 @@ registerResource('showcase', {
 
 registerResource('topTags', {
   source: async () => topTags,
+})
+
+registerNamespacedResource('search', {
+  source: async () => getRandomEvents(),
 })

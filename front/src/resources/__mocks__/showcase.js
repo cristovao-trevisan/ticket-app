@@ -1,7 +1,7 @@
 export default [{
   id: 1,
   name: 'Mario Party',
-  image: 'https://cdn.pixabay.com/photo/2014/05/03/01/02/concert-336695_960_720.jpg',
+  image: 'https://images.freeimages.com/images/large-previews/87f/party-flutes-1419700.jpg',
 }, {
   id: 2,
   name: 'The Beatles: return',

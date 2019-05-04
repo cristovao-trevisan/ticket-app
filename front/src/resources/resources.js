@@ -6,13 +6,17 @@ registerNamespacedResource('eventSeats', {
 })
 
 registerNamespacedResource('eventInfo', {
-  source: async ({ namespace }) => request('/query/event-info', { id: namespace }),
+  source: ({ namespace }) => request('/query/event-info', { id: namespace }),
 })
 
 registerResource('showcase', {
-  source: async () => request('/query/showcase', undefined, 'GET', true),
+  source: () => request('/query/showcase', {}, 'GET', true),
 })
 
 registerResource('topTags', {
-  source: async () => request('/query/top-tags', undefined, 'GET', true),
+  source: () => request('/query/top-tags', {}, 'GET', true),
+})
+
+registerNamespacedResource('search', {
+  source: ({ namespace }) => request('/query/search', { query: namespace }, 'GET', true),
 })

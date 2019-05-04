@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import SearchInput from './SearchInput'
 import TopTags from './TopTags'
+import SearchResult from './SearchResult'
 
 const Search = () => {
   const search = useSelector(state => state.search)
@@ -12,7 +13,10 @@ const Search = () => {
   return (
     <>
       <SearchInput />
-      {showTopTags && <TopTags />}
+      {showTopTags
+        ? <TopTags />
+        : <SearchResult />
+      }
     </>
   )
 }

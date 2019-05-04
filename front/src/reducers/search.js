@@ -10,7 +10,7 @@ const extractStateFromValue = (value) => {
     .replace(/ {2,}/g, ' ') // remove extra white spaces
     .trim()
   const text = parsedText ? parsedText.split(' ') : []
-  console.log({ value, parsedText, text })
+
   return { tags, text }
 }
 
