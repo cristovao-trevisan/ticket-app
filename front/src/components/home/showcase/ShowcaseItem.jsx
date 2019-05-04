@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   width: 80%;
@@ -16,7 +17,9 @@ const Image = styled.img`
 
 const ShowcaseItem = ({ id, name, image }) => (
   <Container>
-    <Image src={image} data-tip onClick={() => console.log({ id })} />
+    <Link to={`event/${id}`}>
+      <Image src={image} data-tip />
+    </Link>
     <ReactTooltip> { name } </ReactTooltip>
   </Container>
 )

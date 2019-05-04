@@ -16,6 +16,7 @@ const Container = styled.div`
 const ArrowRight = styled(MdPlayArrow)`
   font-size: 48px;
   color: ${purple[1]};
+  cursor: pointer;
 `
 const ArrowLeft = styled(ArrowRight)`transform: rotate(180deg);`
 

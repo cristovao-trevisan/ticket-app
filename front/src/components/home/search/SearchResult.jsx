@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   max-height: 250px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 80%;
 `
 
@@ -35,7 +35,7 @@ const SearchResult = () => {
             }
 
             return resource.data.map(({ id, name }) => (
-              <FlatLink key={id}>
+              <FlatLink key={id} to={`/event/${id}`}>
                 { name }
               </FlatLink>
             ))
