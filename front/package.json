@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --hot",
     "start:mock": "USE_MOCKS=true webpack-dev-server --hot",
     "build": "NODE_ENV=production webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint src/* --ext=js,jsx"
   },
   "dependencies": {
     "@async-resource/core": "^0.2.0",
@@ -43,6 +43,7 @@
     "webpack-cli": "^3.3.1"
   },
   "devDependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
     "@types/react": "^16.8.14",
     "@types/react-router-dom": "^4.3.2",
     "babel-eslint": "^10.0.1",
