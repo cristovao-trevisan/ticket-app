@@ -5,9 +5,9 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const isProduction = process.env.NODE_ENV === 'production'
 const useMocks = process.env.USE_MOCKS && !isProduction
 
-const alias = !useMocks ? undefined : {
-  './resources/resources': path.resolve('./src/resources/__mocks__/resources'),
-}
+const alias = {}
+if (useMocks) alias['./resources/resources'] = path.resolve('./src/resources/__mocks__/resources')
+// if (!isProduction) alias['react-dom'] = '@hot-loader/react-dom'
 
 const plugins = [
   new HtmlWebpackPlugin({
