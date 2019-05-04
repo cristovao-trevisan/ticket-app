@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import ReactSidebar from 'react-sidebar'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { useRedux } from 'react-redux'
+import { useRedux, useSelector } from 'react-redux'
 
 import Toolbar from './toolbar/Toolbar'
 import Sidebar from './sidebar/Sidebar'
 import Loadable from './load/Loadable'
 import { setSidebarOpen as setSidebarOpenAction } from '../actions'
 import menuRoutes from '../menu-routes'
+import { FullLoader } from './load/Loader'
 
 const SignIn = Loadable(() => import('./auth/SignIn'))
 
@@ -25,6 +26,9 @@ const App = () => {
     state => state.sidebarOpen,
     open => setSidebarOpenAction(open),
   )
+  const loadingAuth = useSelector(state => state.login.loading)
+
+  if (loadingAuth) return <FullLoader />
 
   return (
     <BrowserRouter>
