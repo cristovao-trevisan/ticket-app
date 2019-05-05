@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
 import SeatMapPopover from '../popover/PopOver'
 import seatAreaMapper from './mappers/seat-area.mapper'
 import fixtureAreaMapper from './mappers/fixture-area.mapper'
@@ -39,8 +40,7 @@ const Container = styled.div`
 `
 
 // Main component
-const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
-  const event = 1
+const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats, event }) => {
   // state and redux variables
   const dimensions = useSelector(state => state.dimensions)
   const [hoveredSeat, setHoveredSeat] = useState(null)
@@ -78,6 +78,7 @@ const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats }) => {
 }
 
 SeatMap.propTypes = {
+  event: PropTypes.number.isRequired,
   fixtureAreas: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string,

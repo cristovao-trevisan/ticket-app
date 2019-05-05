@@ -10,7 +10,8 @@ import {
   ArrowLeft, ArrowRight,
   Container as ContainerStyle,
 } from '../common/image-slider'
-import { signature } from '../../constants/colors'
+import { signature, green } from '../../constants/colors'
+import { RaisedButton, RaisedLinkButton } from '../common/buttons'
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ const Description = styled.div`
   font-size: 14px;
   text-align: justify;
 `
+const BuyTicketButton = styled(RaisedLinkButton)`
+  color: white;
+  background-color: ${green[0]};
+  margin-top: 16px;
+`
 
 const Event = ({ id, name, description, images }) => {
   const [{ reference }, setImageIndex] = useImageSlider(images)
@@ -55,6 +61,7 @@ const Event = ({ id, name, description, images }) => {
         <ArrowRight onClick={setImageIndex(+1)} />
       </ImageSliderContainer>
       <Description> { description } </Description>
+      <BuyTicketButton to={`/event/${id}/purchase`}> Buy Tickets Now </BuyTicketButton>
     </Container>
   )
 }

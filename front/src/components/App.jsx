@@ -13,6 +13,7 @@ import { FullLoader } from './load/Loader'
 
 const SignIn = Loadable(() => import('./auth/SignIn'))
 const Event = Loadable(() => import('./event/Event'))
+const Purchase = Loadable(() => import('./purchase/SeatSelection'))
 
 const Container = styled.div`
   width: 100%;
@@ -42,6 +43,7 @@ const App = () => {
           <Toolbar setSidebarOpen={setSidebarOpen} />
           <Switch>
             <Route path="/signin" component={SignIn} />
+            <Route path="/event/:event/purchase" component={Purchase} />
             <Route path="/event/:event" component={Event} />
             {menuRoutes.reverse().map(({ path, component }) => (
               <Route key={path} path={path} component={Loadable(component)} />
