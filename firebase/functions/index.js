@@ -16,7 +16,6 @@ const RHUB_URL = 'https://ticket-app.reactivehub.io'
 async function makeRequest(url, method, bd, response) {
   try {
     const body = method === 'GET' ? undefined : bd
-    console.log('make request', { url, method, body, headers })
     const res = await got(`${RHUB_URL}${url}`, { method, body, headers })
     response.status(res.statusCode).send(res.body);
   }
@@ -67,5 +66,3 @@ exports.authGateway = functions.https.onRequest(async (request, response) => {
     response.status(401).send()
   }
 })
-
-
