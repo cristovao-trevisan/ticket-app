@@ -61,5 +61,11 @@ FlatIconButton.defaultProps = { size: 18 }
 // Raised buttons
 export const RaisedButton = styled.button`${raisedStyle}`
 export const RaisedIconButton = styled(RaisedButton)`${iconStyle}`
+export const RaisedLinkButton = styled(Link)`
+  text-decoration: none;
+  ${raisedStyle}
+`
+
 RaisedButton.defaultProps = { size: 16 }
+RaisedLinkButton.defaultProps = { size: 16 }
 RaisedIconButton.defaultProps = { size: 18 }
