@@ -1,4 +1,7 @@
 import { registerNamespacedResource, registerResource } from '@async-resource/redux'
+import { storage } from 'firebase/app'
+import 'firebase/storage'
+
 import request from './request'
 
 registerNamespacedResource('eventSeats', {
@@ -19,4 +22,8 @@ registerResource('topTags', {
 
 registerNamespacedResource('search', {
   source: ({ namespace }) => request('/query/search', { query: namespace }, 'GET', true),
+})
+
+registerNamespacedResource('images', {
+  source: ({ namespace }) => storage().ref(namespace).getDownloadURL(),
 })

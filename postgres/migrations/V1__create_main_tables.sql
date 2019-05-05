@@ -128,6 +128,13 @@ CREATE TABLE "EventTags" (
     PRIMARY KEY (event, tag)
 );
 
+CREATE TABLE "EventImages" (
+  id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  event INT REFERENCES "Events"(id),
+  reference VARCHAR(255) NOT NULL,
+  main BOOLEAN DEFAULT FALSE
+);
+
 -- Order Data
 
 CREATE TABLE "Orders" (

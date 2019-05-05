@@ -1,4 +1,6 @@
 import { registerNamespacedResource, registerResource } from '@async-resource/redux'
+import { storage } from 'firebase/app'
+import 'firebase/storage'
 
 import eventSeats from './event-seats'
 import eventInfo from './event-info'
@@ -24,4 +26,8 @@ registerResource('topTags', {
 
 registerNamespacedResource('search', {
   source: async () => getRandomEvents(),
+})
+
+registerNamespacedResource('images', {
+  source: ({ namespace }) => storage().ref(namespace).getDownloadURL(),
 })

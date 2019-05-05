@@ -1,33 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Resource } from '@async-resource/react-redux'
 import styled from 'styled-components'
-import { MdPlayArrow } from 'react-icons/md'
 import { FullLoader } from '../../load/Loader'
 import ShowcaseItem from './ShowcaseItem'
-import { purple } from '../../../constants/colors'
+import {
+  useImageSlider,
+  ArrowLeft,
+  ArrowRight,
+  Container as ContainerStyle,
+} from '../../common/image-slider'
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Container = styled(ContainerStyle)`
   margin-bottom: 48px;
 `
-const ArrowRight = styled(MdPlayArrow)`
-  font-size: 48px;
-  color: ${purple[1]};
-  cursor: pointer;
-`
-const ArrowLeft = styled(ArrowRight)`transform: rotate(180deg);`
 
 const Showcase = ({ showcases }) => {
-  const [index, setIndexAction] = useState(0)
-  const event = showcases[index]
-  const setIndex = inc => () => {
-    const newIndex = index + inc
-    if (newIndex < 0 || newIndex === showcases.length) return
-    setIndexAction(newIndex)
-  }
+  const [event, setIndex] = useImageSlider(showcases)
 
   return (
     <Container>
