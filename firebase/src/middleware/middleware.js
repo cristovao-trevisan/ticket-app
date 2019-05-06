@@ -30,10 +30,14 @@ export const checkAuth = (useOpenUrls = true) => {
       return
     }
 
+    const auth = firebase.auth()
+    const token = request.header('Authorization')
+    if (!token) {
+      response.status(401).send('Private route, authorization required')
+    }
+  
     try {
-      const auth = firebase.auth()
-      const token = request.header('Authorization').replace('Bearer ', '')
-      const decoded = await auth.verifyIdToken(token)
+      const decoded = await auth.verifyIdToken(token.replace('Bearer ', ''))
       const { email, uid } = await auth.getUser(decoded.uid)
       
       request.auth = { email, uid }
