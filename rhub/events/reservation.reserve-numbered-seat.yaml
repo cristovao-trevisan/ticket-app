@@ -1,0 +1,12 @@
+id: reservation.reserve-numbered-seat
+name: reserve-numbered-seat
+eventGroup: reservation
+version: 0.0.1
+model:
+  keyName: String
+filters:
+  -
+    id: on-event
+    name: onEvent
+    condition: null
+    actions: null

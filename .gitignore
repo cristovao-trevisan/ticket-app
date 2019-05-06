@@ -2,3 +2,5 @@
 front/dist/
 rhub/logs/
 postgres/flyway.prod.conf
+firebase/dist
+firebase/.runtimeconfig.json

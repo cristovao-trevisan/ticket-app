@@ -4,7 +4,7 @@ const OPEN_URLS = [
   '/query/event-info',
   '/query/top-tags',
 ]
-module.exports = (rawUrl) => {
+export default (rawUrl) => {
   const url = rawUrl.replace(/\?.*/, '')
   return OPEN_URLS.includes(url)
 }
