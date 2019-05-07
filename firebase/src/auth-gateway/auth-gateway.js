@@ -15,13 +15,17 @@ function parseRequestInfo(method, request, email, uid) {
   if (method === 'GET') {
     const { query, url: urlOnly } = queryString.parseUrl(request.url);
     return {
-      url: `${urlOnly}?${queryString.stringify({ ...query, email, uid })}`,
+      url: `${urlOnly}?${queryString.stringify({
+        ...query,
+        auth_email: email,
+        auth_uid: uid,
+      })}`,
     }
   }
   return {
     body: request.body && {
       ...request.body,
-      email, uid,
+      auth: { email, uid },
     },
     url: request.url,
   }
