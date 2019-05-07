@@ -1,6 +1,6 @@
-INSERT INTO "Users" (email, "fullName", gender, address) VALUES
-  ('super@mario.com', 'Super Mario', 'MALE', ROW('Peach Blv, 12', 'Mushroom City', 'Peach''s Kingdown', 'PC', 123.456, 654.321)),
-  ('bad@bowser.com', 'Bowser', 'NOT_DEFINED', ROW('Lava Streat, 666', 'Floating Boat', 'Sky', NULL, 123.456, 654.321))
+INSERT INTO "Users" (uid, email, "fullName", gender, address) VALUES
+  ('1', 'super@mario.com', 'Super Mario', 'MALE', ROW('Peach Blv, 12', 'Mushroom City', 'Peach''s Kingdown', 'PC', 123.456, 654.321)),
+  ('2', 'bad@bowser.com', 'Bowser', 'NOT_DEFINED', ROW('Lava Streat, 666', 'Floating Boat', 'Sky', NULL, 123.456, 654.321))
 ;
 
 INSERT INTO "ShowHouses" (id, name, description, address) VALUES

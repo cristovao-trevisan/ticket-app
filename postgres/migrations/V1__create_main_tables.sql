@@ -10,6 +10,7 @@ CREATE TYPE ADDRESS AS (
 
 CREATE TABLE "Users" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  uid VARCHAR(127) UNIQUE NOT NULL,
   email VARCHAR(127) UNIQUE NOT NULL,
   birth VARCHAR(15),
   "fullName" VARCHAR(127) NOT NULL,
@@ -93,6 +94,13 @@ CREATE TABLE "SeatFixtureAreas" (
   "locationStart" POINT,
   "locationEnd" POINT
 ) INHERITS ("Seats");
+
+CREATE TABLE "GenericSeatsReservations" (
+  "user" INT NOT NULL REFERENCES "Users"(id),
+  seat INT NOT NULL,
+  amount INT DEFAULT(0),
+    PRIMARY KEY (seat, "user")
+);
 
 CREATE TABLE "Pricings" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
