@@ -9,8 +9,7 @@ CREATE TYPE ADDRESS AS (
 );
 
 CREATE TABLE "Users" (
-  id SERIAL UNIQUE NOT NULL PRIMARY KEY,
-  uid VARCHAR(127) UNIQUE NOT NULL,
+  uid VARCHAR(128) PRIMARY KEY,
   email VARCHAR(127) UNIQUE NOT NULL,
   birth VARCHAR(15),
   "fullName" VARCHAR(127) NOT NULL,
@@ -96,7 +95,7 @@ CREATE TABLE "SeatFixtureAreas" (
 ) INHERITS ("Seats");
 
 CREATE TABLE "GenericSeatsReservations" (
-  "user" INT NOT NULL REFERENCES "Users"(id),
+  "user" VARCHAR(128) NOT NULL REFERENCES "Users"(uid),
   seat INT NOT NULL,
   amount INT DEFAULT(0),
     PRIMARY KEY (seat, "user")
@@ -147,7 +146,7 @@ CREATE TABLE "EventImages" (
 
 CREATE TABLE "Orders" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
-  "user" INT REFERENCES "Users"(id),
+  "user" VARCHAR(128) REFERENCES "Users"(uid),
   event INT REFERENCES "Events"(id)
 );
 

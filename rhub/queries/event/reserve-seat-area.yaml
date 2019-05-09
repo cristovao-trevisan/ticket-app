@@ -1,0 +1,35 @@
+# params: amount, seat, auth_uid
+id: reserve-seat-area
+scope: event
+serviceAccountId: amazon-postgres-rds
+query: >
+  WITH
+    variables AS (
+      SELECT
+        '{auth_uid}' AS inputUser,
+        {amount} AS inputAmount,
+        {seat} AS inputSeat
+    ),
+    seat AS (
+      UPDATE "GenericSeats"
+      SET reserved = reserved + inputAmount
+      FROM "Users" "user", variables
+      WHERE (occupied + reserved + inputAmount) < capacity
+        AND id = inputSeat
+        AND "user".uid = inputUser
+      RETURNING id, uid AS userUid
+    )
+
+  INSERT INTO "GenericSeatsReservations" (seat, amount, "user")
+    SELECT seat.id, COALESCE(reservation.amount, inputAmount), "user".uid
+    FROM seat, "Users" "user"
+    
+    INNER JOIN variables ON TRUE
+    LEFT JOIN "GenericSeatsReservations" reservation
+      ON reservation.user = "user".uid
+
+    WHERE "user".uid = userUid
+  ON CONFLICT (seat, "user")
+    DO UPDATE SET amount = EXCLUDED.amount + {amount}
+  RETURNING amount
+  ;

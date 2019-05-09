@@ -1,0 +1,28 @@
+# params: amount, seat, auth_uid
+id: un-reserve-seat-area
+scope: event
+serviceAccountId: amazon-postgres-rds
+query: >
+  WITH
+    reservation AS (
+      UPDATE "GenericSeatsReservations" reservation
+      SET amount = GREATEST(reservation.amount - {amount}, 0)
+      FROM "GenericSeatsReservations" oldReservation
+
+      WHERE reservation.amount > 0
+        AND reservation.seat = {seat}
+        AND reservation.user = '{auth_uid}'
+        AND oldReservation.seat = reservation.seat
+        AND oldReservation.user = reservation.user
+      RETURNING
+        reservation.seat AS seatId,
+        oldReservation.amount - reservation.amount AS amount
+    )
+
+  UPDATE "GenericSeats" seat
+  SET reserved = reserved - reservation.amount
+  FROM reservation
+  WHERE id = reservation.seatId
+  RETURNING reserved
+  ;
+
