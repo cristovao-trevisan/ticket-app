@@ -9,7 +9,8 @@
   "scripts": {
     "build": "babel src --out-dir dist --source-maps",
     "predeploy": "npm run build",
-    "deploy": "firebase deploy --only functions:authGateway",
+    "start": "babel-watch src/index.js",
+    "deploy": "firebase deploy --only functions:authGateway,functions:reservation",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +21,7 @@
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@types/got": "^9.4.4",
+    "babel-watch": "^7.0.0",
     "firebase-tools": "^6.7.2"
   },
   "dependencies": {

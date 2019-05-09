@@ -24,6 +24,13 @@ export const checkAuth = (useOpenUrls = true) => {
    * @param {function} next 
   */
   const doCheck = async (request, response, next) => {
+    if (process.env.NODE_ENV !== 'production') {
+      // dev mode
+      request.auth = { open: true }
+      next()
+      return
+    }
+
     if (useOpenUrls && isUrlOpen(request.url)) {
       request.auth = { open: true }
       next()
