@@ -1,5 +1,5 @@
-id: reservation.reserve-numbered-seat
-name: reserve-numbered-seat
+id: reservation.un-reserve-numbered-seat
+name: un-reserve-numbered-seat
 eventGroup: reservation
 version: 0.0.1
 model:
@@ -14,14 +14,14 @@ filters:
     condition: null
     actions:
       -
-        id: do-reserve
+        id: do-un-reserve
         async: false
         type: API
         action: POST
         operation: null
         serviceAccountId: functions-reservation
         template:
-          path: /reserve
+          path: /un-reserve
           payload:
             event: '{event}'
             seat: '{seat}'
