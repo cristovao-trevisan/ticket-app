@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { NamespacedResource } from '@async-resource/react-redux'
-import { FullLoader } from '../load/Loader'
+
 import withImageSrc from '../common/with-image-src'
-import {
-  useImageSlider,
-  ArrowLeft, ArrowRight,
-  Container as ContainerStyle,
-} from '../common/image-slider'
+import useImageSlider from '../../hooks/use-image-slider'
+import { FullLoader } from '../load/Loader'
+import { RaisedLinkButton } from '../common/buttons'
 import { signature, green } from '../../constants/colors'
-import { RaisedButton, RaisedLinkButton } from '../common/buttons'
+import { ArrowLeft, ArrowRight, Container as ContainerStyle } from '../common/image-slider'
 
 const Container = styled.div`
   display: flex;

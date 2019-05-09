@@ -2,14 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Resource } from '@async-resource/react-redux'
 import styled from 'styled-components'
-import { FullLoader } from '../../load/Loader'
+
 import ShowcaseItem from './ShowcaseItem'
-import {
-  useImageSlider,
-  ArrowLeft,
-  ArrowRight,
-  Container as ContainerStyle,
-} from '../../common/image-slider'
+import useImageSlider from '../../../hooks/use-image-slider'
+import { FullLoader } from '../../load/Loader'
+import { ArrowLeft, ArrowRight, Container as ContainerStyle } from '../../common/image-slider'
 
 const Container = styled(ContainerStyle)`
   margin-bottom: 48px;
