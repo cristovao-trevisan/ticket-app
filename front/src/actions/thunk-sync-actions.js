@@ -5,8 +5,8 @@ export const addSeatToCartSync = cartSeat => ({
   cartSeat,
 })
 
-export const removeSeatFromCartSync = (seat, usePricing = false) => ({
+export const removeSeatFromCartSync = (cartSeat, usePricing = false) => ({
   type: types.REMOVE_SEAT_FROM_CART,
   usePricing,
-  seat,
+  cartSeat,
 })

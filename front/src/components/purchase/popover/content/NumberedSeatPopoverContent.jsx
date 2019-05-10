@@ -47,7 +47,7 @@ const NumberedSeatPopoverContent = ({
         Seat #{ number }
         {purchase
           ? <NotAvailable> &nbsp;&nbsp; Occupied </NotAvailable>
-          : !reservation && !isOwner && <NotAvailable> &nbsp;&nbsp; Reserved </NotAvailable>
+          : reservation && !isOwner && <NotAvailable> &nbsp;&nbsp; Reserved </NotAvailable>
         }
       </Title>
       { (reservation && isOwner) ? UnReserve : PriceList }

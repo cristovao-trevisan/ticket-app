@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NamespacedResources } from '@async-resource/react-redux'
-import { Loader } from '../components/load/Loader'
+import { FullLoader } from '../components/load/Loader'
 
 const searchById = id => item => item.id === id
 
@@ -23,7 +23,7 @@ export default (Component) => {
       ids={['eventInfo', 'eventSeats']}
       namespace={props.event}
       render={({ eventInfo, eventSeats }, state) => {
-        if (state.loading) return <Loader />
+        if (state.loading) return <FullLoader />
         if (state.loaded) {
           // pricing
           const pricing = eventSeats.data.pricings

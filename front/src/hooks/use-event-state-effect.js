@@ -22,6 +22,10 @@ export default (
       setReservations(reservations)
       setPurchases(purchases)
       setPrices(prices)
+    } else {
+      setReservations({})
+      setPurchases({})
+      setPrices({})
     }
   })
 }, [event])
