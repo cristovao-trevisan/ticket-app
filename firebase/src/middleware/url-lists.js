@@ -14,5 +14,5 @@ export const whiteList = (rawUrl) => {
 }
 export const blacklist = (rawUrl) => {
   const url = rawUrl.replace(/\?.*/, '')
-  return WHITE_LIST.includes(url)
+  return BLACK_LIST.includes(url)
 }
