@@ -3,7 +3,10 @@ name: reserve-seat-area
 eventGroup: reservation
 version: 0.0.1
 model:
-  id: Number
+  amount: Number
+  seat: Number
+  auth:
+    uid: String
 filters:
   -
     id: on-event
@@ -14,10 +17,20 @@ filters:
         id: postgres
         async: false
         type: API
-        action: POST
+        action: GET
         operation: null
         serviceAccountId: query-api-proxy
         template:
-          path: /event-info
-          payload:
-            id: '{id}'
+          path: /reserve-seat-area
+          query:
+            amount: '{amount}'
+            seat: '{seat}'
+            auth_uid: '{auth.uid}'
+        onSuccess:
+          -
+            eventId: reservation.on-seat-area-reserved
+            payload:
+              seat: '{request.seat}'
+              auth:
+                uid: '{request.auth.uid}'
+              amount: '{response.data.data[0].amount}'
