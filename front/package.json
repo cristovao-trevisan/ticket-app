@@ -5,7 +5,8 @@
   "scripts": {
     "start": "webpack-dev-server --hot",
     "start:mock": "USE_MOCKS=true webpack-dev-server --hot",
-    "build": "NODE_ENV=production webpack -p",
+    "predeploy": "NODE_ENV=production webpack -p",
+    "deploy": "firebase deploy",
     "test": "eslint src/* --ext=js,jsx"
   },
   "dependencies": {

@@ -1,5 +1,6 @@
 *node_modules/
 front/dist/
+front/.firebase
 rhub/logs/
 postgres/flyway.prod.conf
 firebase/dist
