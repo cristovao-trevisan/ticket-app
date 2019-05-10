@@ -25,6 +25,7 @@
     "firebase-tools": "^6.7.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "firebase-admin": "^7.3.0",
     "firebase-functions": "^2.3.0",

@@ -1,21 +1,6 @@
 import firebase from 'firebase-admin'
 import { whiteList, blacklist } from './url-lists'
 
-/**
- * @param {import('firebase-functions').Request} request 
- * @param {import('firebase-functions').Response} response 
- * @param {function} next 
-*/
-export const cors = (request, response, next) => {
-  response.set('Access-Control-Allow-Origin', '*')
-  response.set('Access-Control-Allow-Headers', 'Authorization')
-  if (request.method === 'OPTIONS') {
-    response.status(204).send()
-  } else {
-    next()
-  }
-}
-
 export const checkAuth = (useWhiteAndBlackList = true) => {
   /**
    * Sets request.auth = { email, uid } | null
@@ -26,7 +11,7 @@ export const checkAuth = (useWhiteAndBlackList = true) => {
   const doCheck = async (request, response, next) => {
     if (process.env.NODE_ENV !== 'production') {
       // dev mode
-      request.auth = { open: true }
+      request.auth = { email: 'test@test.com', uid: 'test' }
       next()
       return
     }
@@ -52,7 +37,6 @@ export const checkAuth = (useWhiteAndBlackList = true) => {
     try {
       const decoded = await auth.verifyIdToken(token.replace('Bearer ', ''))
       const { email, uid } = await auth.getUser(decoded.uid)
-      
       request.auth = { email, uid }
       next()
     } catch (err) {

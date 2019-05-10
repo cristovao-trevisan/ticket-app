@@ -2,13 +2,13 @@
 
 import queryString from 'query-string'
 import express from 'express'
-
-import { checkAuth, cors } from '../middleware/middleware'
+import cors from 'cors'
+import { checkAuth } from '../middleware/middleware'
 import { makeRhubRequest } from '../rhub'
 
 
 const app = express()
-app.use(cors)
+app.use(cors())
 app.use(checkAuth(true))
 app.use(express.json())
 
@@ -42,7 +42,6 @@ app.all('*', async (request, response) => {
   } else {
     const { method } = request
     const { url, body } = parseRequestInfo(method, request, email, uid);
-
     await makeRhubRequest(url, method, body, response);
   }
 })
