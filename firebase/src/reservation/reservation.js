@@ -29,7 +29,7 @@ app.post('/reserve', async (request, response) => {
   const { event, seat } = request.body
   
   // forbid overwrite
-  const doc = await firestore().doc(`/reservations/${event}`).get()
+  const doc = await firestore().doc(`/events/${event}`).get()
   if (doc.exists) {
     const { reservations = {} } = doc.data()
     if (reservations[seat]) {
@@ -45,7 +45,7 @@ app.post('/un-reserve', async (request, response) => {
   const { event, seat, auth: { uid } } = request.body
 
   // event doc not found
-  const doc = await firestore().doc(`/reservations/${event}`).get()
+  const doc = await firestore().doc(`/events/${event}`).get()
   if (!doc.exists) {
     response.status(404).send()
     return
