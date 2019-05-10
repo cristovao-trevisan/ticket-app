@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Title, PriceContainer, PriceValue, PriceName } from './styles'
-import withPricing from './withPricing'
+import withEventSeatInfo from '../../../../hoc/with-event-seat-info'
 
 // Reserve seat by word click, remove all with x at right
 
@@ -27,4 +27,4 @@ SeatAreaPopoverContent.propTypes = {
   })).isRequired,
 }
 
-export default withPricing(SeatAreaPopoverContent)
+export default withEventSeatInfo(SeatAreaPopoverContent)

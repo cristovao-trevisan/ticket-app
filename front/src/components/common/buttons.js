@@ -46,6 +46,10 @@ export const raisedStyle = css`
     ${shadows[0]}
   }
   :active { box-shadow: none; }
+
+  :disabled {
+    box-shadow: none;
+  }
 `
 
 

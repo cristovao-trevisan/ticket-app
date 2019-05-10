@@ -3,9 +3,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { areaDimensions } from './commom'
+import { fixture } from '../../../../constants/colors'
 
 const FixtureArea = styled.div`
-  background-color: yellow;
+  background-color: ${fixture};
   position: absolute;
   display: flex;
   align-items: center;

@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 import NumberedSeatPopoverContent from '../../popover/content/NumberedSeatPopoverContent'
 import { pointToCoordinate } from './commom'
+import { vacant, selected, reserved, occupied } from '../../../../constants/colors'
 
 const SEAT_RADIUS = 30
 
 const NumberedSeat = styled.div`
-  background-color: green;
+  z-index: ${props => props.zIndex};
+  background-color: ${props => props.color};
   position: absolute;
   border-radius: 50%;
   display: flex;
@@ -32,22 +35,50 @@ const numberedSeatDimensions = ({ location, multiplier }) => {
   }
 }
 
+const getColor = (reservation, purchase, uid) => {
+  if (purchase) return occupied
+  switch (reservation) {
+    case undefined:
+    case null:
+    case false:
+      return vacant
+    case uid: return selected
+    default: return reserved
+  }
+}
 
 const numberedSeatMapper = ({
-  multiplier, setHoveredSeat, setSelectedSeat, popoverSeat, event,
+  multiplier, popoverSeat, event,
+  reservations, purchases, prices,
+  setHoveredSeat, setSelectedSeat,
 }) => ({
   id, number, location,
 }) => {
+  const uid = useSelector(state => state.login.data.uid)
   // z-index must be set so popover doesn't go over item
   const zIndex = (!popoverSeat || popoverSeat.id !== id) ? 0 : 1
   const { style, popoverPosition } = numberedSeatDimensions({ location, multiplier })
-  const popoverContent = <NumberedSeatPopoverContent number={number} seat={id} event={event} />
+  const reservation = reservations[id]
+  const purchase = purchases[id]
+
+  const popoverContent = (
+    <NumberedSeatPopoverContent
+      number={number}
+      seat={id}
+      event={event}
+      reservation={reservation}
+      purchase={purchase}
+      price={prices[id]}
+    />
+  )
   const popoverInfo = { id, popoverPosition, popoverContent }
 
   return (
     <NumberedSeat
       key={id}
-      style={{ ...style, zIndex }}
+      zIndex={zIndex}
+      color={getColor(reservation, purchase, uid)}
+      style={style}
       onMouseEnter={() => setHoveredSeat(popoverInfo)}
       onMouseLeave={() => setHoveredSeat(null)}
       onClick={setSelectedSeat(popoverInfo)}

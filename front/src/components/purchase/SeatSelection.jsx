@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { NamespacedResources } from '@async-resource/react-redux'
 import { withRouter } from 'react-router-dom'
@@ -6,9 +6,15 @@ import { withRouter } from 'react-router-dom'
 import AuthRequired from '../auth/AuthRequired'
 import SeatMap from './seat-map/SeatMap'
 import { FullLoader } from '../load/Loader'
+import SeatMapConvention from './seat-map-convention/SeatMapConvention'
+import useEventStateEffect from '../../hooks/use-event-state-effect'
 
 const SeatSelection = ({ match }) => {
   const event = Number(match.params.event)
+  const [reservations, setReservations] = useState({})
+  const [purchases, setPurchases] = useState({})
+  const [prices, setPrices] = useState({})
+  useEventStateEffect(event, { setReservations, setPurchases, setPrices })
 
   return (
     <AuthRequired>
@@ -24,6 +30,9 @@ const SeatSelection = ({ match }) => {
                 fixtureAreas={eventSeats.data.fixtureAreas}
                 numberedSeats={eventSeats.data.numberedSeats}
                 seatAreas={eventSeats.data.seatAreas}
+                reservations={reservations}
+                purchases={purchases}
+                prices={prices}
               />
             )
           }
@@ -31,6 +40,7 @@ const SeatSelection = ({ match }) => {
           return <div> Error </div>
         }}
       />
+      <SeatMapConvention />
     </AuthRequired>
   )
 }

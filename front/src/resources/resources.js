@@ -13,15 +13,15 @@ registerNamespacedResource('eventInfo', {
 })
 
 registerResource('showcase', {
-  source: () => request('/query/showcase', {}, 'GET', true),
+  source: () => request('/query/showcase', {}, 'GET', { isArray: true }),
 })
 
 registerResource('topTags', {
-  source: () => request('/query/top-tags', {}, 'GET', true),
+  source: () => request('/query/top-tags', {}, 'GET', { isArray: true }),
 })
 
 registerNamespacedResource('search', {
-  source: ({ namespace }) => request('/query/search', { query: namespace }, 'GET', true),
+  source: ({ namespace }) => request('/query/search', { query: namespace }, 'GET', { isArray: true }),
 })
 
 registerNamespacedResource('images', {

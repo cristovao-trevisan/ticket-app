@@ -260,6 +260,7 @@ export default {
       occupied: false,
     },
   ],
+  genericAreas: [],
   pricings: [
     { seat: 22, pricing: [4, 3] },
     { seat: 11, pricing: [4, 3] },

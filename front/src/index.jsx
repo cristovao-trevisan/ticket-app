@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { initializeApp } from 'firebase/app'
+import ButterToast, { POS_BOTTOM, POS_CENTER } from 'butter-toast'
 
 import store from './store'
 import { onDimensionChange } from './reducers/dimensions'
@@ -16,6 +17,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <App />
+      <ButterToast position={{ vertical: POS_BOTTOM, horizontal: POS_CENTER }} />
     </Provider>,
     document.getElementById('root'),
   )

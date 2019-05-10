@@ -40,7 +40,10 @@ const Container = styled.div`
 `
 
 // Main component
-const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats, event }) => {
+const SeatMap = ({
+  fixtureAreas, seatAreas, numberedSeats, event,
+  reservations, purchases, prices,
+}) => {
   // state and redux variables
   const dimensions = useSelector(state => state.dimensions)
   const [hoveredSeat, setHoveredSeat] = useState(null)
@@ -49,13 +52,16 @@ const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats, event }) => {
     e.stopPropagation()
     setSelectedSeatState(state)
   }
-  const popoverSeat = selectedSeat || hoveredSeat
 
-  // calculate responsive dimensions
+  const popoverSeat = selectedSeat || hoveredSeat
   const { width, height, multiplier } = calculateDimensions(dimensions)
 
   // generate items
-  const mappingData = { multiplier, setHoveredSeat, setSelectedSeat, popoverSeat, event }
+  const mappingData = {
+    multiplier, popoverSeat, event,
+    reservations, purchases, prices,
+    setHoveredSeat, setSelectedSeat,
+  }
   const FixtureAreas = fixtureAreas.map(fixtureAreaMapper({ multiplier }))
   const SeatAreas = seatAreas.map(seatAreaMapper(mappingData))
   const NumberedSeats = numberedSeats.map(numberedSeatMapper(mappingData))
@@ -79,6 +85,9 @@ const SeatMap = ({ fixtureAreas, seatAreas, numberedSeats, event }) => {
 
 SeatMap.propTypes = {
   event: PropTypes.number.isRequired,
+  reservations: PropTypes.shape({}).isRequired,
+  purchases: PropTypes.shape({}).isRequired,
+  prices: PropTypes.shape({}).isRequired,
   fixtureAreas: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string,

@@ -6,16 +6,17 @@ export const red = ['#DF645D', '#F19A96', '#F8CECC']
 export const yellow = ['#F4F241', '#FFFE8F', '#FDFDC7']
 export const orange = ['#FFB643', '#FFCA78', '#FFDBA2']
 export const purple = ['#751be4', '#B390DD', '#E1D3F2']
+export const gray = ['#888888', '#919191', '#d1d1d1']
 
 // named aspects
 export const signature = purple[0]
 export const warning = orange[0]
 export const spinner = blue[0]
-export const vacant = blue[2]
-export const reserved = yellow[2]
-export const occupied = red[2]
-export const selected = green[2]
-
+export const vacant = blue[0]
+export const reserved = yellow[0]
+export const occupied = red[0]
+export const selected = green[0]
+export const fixture = gray[1]
 
 export const tagChips = [
   { border: blue[0], background: blue[2] },

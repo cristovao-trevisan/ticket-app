@@ -1,5 +1,7 @@
 import * as types from '../constants/action-types'
 
+export * from './thunk-actions'
+
 export const setWindowDimensions = dimensions => ({
   type: types.SET_WINDOW_DIMENSIONS,
   ...dimensions,
