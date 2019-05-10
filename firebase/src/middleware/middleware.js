@@ -1,5 +1,5 @@
 import firebase from 'firebase-admin'
-import isUrlOpen from './open-urls'
+import { whiteList, blacklist } from './url-lists'
 
 /**
  * @param {import('firebase-functions').Request} request 
@@ -16,7 +16,7 @@ export const cors = (request, response, next) => {
   }
 }
 
-export const checkAuth = (useOpenUrls = true) => {
+export const checkAuth = (useWhiteAndBlackList = true) => {
   /**
    * Sets request.auth = { email, uid } | null
    * @param {import('firebase-functions').Request} request 
@@ -31,10 +31,16 @@ export const checkAuth = (useOpenUrls = true) => {
       return
     }
 
-    if (useOpenUrls && isUrlOpen(request.url)) {
-      request.auth = { open: true }
-      next()
-      return
+    if (useWhiteAndBlackList) {
+      if (whiteList(request.url)) {
+        request.auth = { open: true }
+        next()
+        return
+      }
+      if (blacklist(request.url)) {
+        response.status(403).send()
+        return
+      }
     }
 
     const auth = firebase.auth()
