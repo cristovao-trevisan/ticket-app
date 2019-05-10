@@ -21,7 +21,7 @@ filters:
         operation: set
         serviceAccountId: google
         template:
-          path: '/reservations/{event}'
+          path: '/events/{event}'
           merge: true
           payload:
             reservations:

@@ -1,0 +1,23 @@
+id: reservation.reserve-seat-area
+name: reserve-seat-area
+eventGroup: reservation
+version: 0.0.1
+model:
+  id: Number
+filters:
+  -
+    id: on-event
+    name: onEvent
+    condition: null
+    actions:
+      -
+        id: postgres
+        async: false
+        type: API
+        action: POST
+        operation: null
+        serviceAccountId: query-api-proxy
+        template:
+          path: /event-info
+          payload:
+            id: '{id}'
