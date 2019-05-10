@@ -1,5 +1,5 @@
-id: reservation.reserve-seat-area
-name: reserve-seat-area
+id: reservation.un-reserve-seat-area
+name: un-reserve-seat-area
 eventGroup: reservation
 version: 0.0.1
 model:
@@ -21,7 +21,7 @@ filters:
         operation: null
         serviceAccountId: query-api-proxy
         template:
-          path: /reserve-seat-area
+          path: /un-reserve-seat-area
           query:
             amount: '{amount}'
             seat: '{seat}'

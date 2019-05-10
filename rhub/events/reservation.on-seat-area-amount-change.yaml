@@ -1,0 +1,44 @@
+id: reservation.on-seat-area-amount-change
+name: on-seat-area-amount-change
+eventGroup: reservation
+version: 0.0.1
+model:
+  seat: Number
+  event: Number
+  amount: Number
+  reserved: Number
+  occupied: Number
+  auth:
+    uid: String
+filters:
+  -
+    id: on-event
+    name: onEvent
+    condition: 'amount <> NULL'
+    actions:
+      -
+        id: firestore-event
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/events/{event}'
+          merge: true
+          payload:
+            reserved: '{reserved}'
+            occupied: '{occupied}'
+      -
+        id: firestore-user
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/users/{auth.uid}'
+          merge: true
+          payload:
+            seatAreas:
+              '{seat}': '{amount}'

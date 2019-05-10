@@ -16,13 +16,13 @@ query: >
         AND oldReservation.user = reservation.user
       RETURNING
         reservation.seat AS seatId,
-        oldReservation.amount - reservation.amount AS amount
+        oldReservation.amount - reservation.amount AS diff,
+        reservation.amount
     )
 
   UPDATE "GenericSeats" seat
-  SET reserved = reserved - reservation.amount
+  SET reserved = reserved - reservation.diff
   FROM reservation
   WHERE id = reservation.seatId
-  RETURNING reserved
+  RETURNING reserved, occupied, reservation.amount, event
   ;
-

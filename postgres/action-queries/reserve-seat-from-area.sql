@@ -13,18 +13,30 @@ WITH
       AND id = inputSeat -- seat
       AND "user".uid = inputUser
     RETURNING id, uid AS userUid
+  ),
+  insertion AS (
+    INSERT INTO "GenericSeatsReservations" (seat, amount, "user")
+      SELECT seat.id, COALESCE(reservation.amount, inputAmount), "user".uid
+      FROM seat, "Users" "user"
+      
+      INNER JOIN variables ON TRUE
+      LEFT JOIN "GenericSeatsReservations" reservation
+        ON reservation.user = "user".uid
+
+      WHERE "user".uid = userUid
+    ON CONFLICT (seat, "user")
+      DO UPDATE SET amount = EXCLUDED.amount + 2 -- inputAmount
+    RETURNING amount, seat
   )
 
-INSERT INTO "GenericSeatsReservations" (seat, amount, "user")
-  SELECT seat.id, COALESCE(reservation.amount, inputAmount), "user".uid
-  FROM seat, "Users" "user"
-  
-  INNER JOIN variables ON TRUE
-  LEFT JOIN "GenericSeatsReservations" reservation
-    ON reservation.user = "user".uid
+SELECT
+  insertion.amount,
+  area.reserved + variables.inputAmount AS reserved,
+  area.occupied,
+  area.event
+FROM insertion 
 
-  WHERE "user".uid = userUid
-ON CONFLICT (seat, "user")
-  DO UPDATE SET amount = EXCLUDED.amount + 2 -- inputAmount
-RETURNING amount
+INNER JOIN "GenericSeats" area
+  ON insertion.seat = area.id
+INNER JOIN variables ON TRUE
 ;
