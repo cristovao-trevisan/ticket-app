@@ -16,7 +16,7 @@ INSERT INTO "ShowHouseSeatAreas" ("showHouse", name, capacity, reserved, occupie
   (1, 'Main Seat Area', 100, 0, 0, POINT(200, 500), POINT(1800, 925))
 ;
 
-INSERT INTO "ShowHouseNumberedSeats" ("showHouse", number, reserved, occupied, location) VALUES
+INSERT INTO "ShowHouseNumberedSeats" ("showHouse", name, reserved, occupied, location) VALUES
   (1, 'A1', FALSE, FALSE, POINT(200, 350)),
   (1, 'A2', FALSE, FALSE, POINT(300, 350)),
   (1, 'A3', FALSE, FALSE, POINT(400, 350)),
@@ -64,8 +64,8 @@ INSERT INTO "SeatAreas" (event, name, capacity, reserved, occupied, "locationSta
   FROM "ShowHouseSeatAreas"
   WHERE "showHouse" = 1;
 
-INSERT INTO "NumberedSeats" (event, number, reserved, occupied, location)
-  SELECT 1 AS event, number, reserved, occupied, location
+INSERT INTO "NumberedSeats" (event, name, reserved, occupied, location)
+  SELECT 1 AS event, name, reserved, occupied, location
   FROM "ShowHouseNumberedSeats"
   WHERE "showHouse" = 1;
 

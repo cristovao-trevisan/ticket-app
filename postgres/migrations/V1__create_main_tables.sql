@@ -28,11 +28,11 @@ CREATE TABLE "ShowHouses" (
 
 CREATE TABLE "ShowHouseSeats" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  name VARCHAR(127),
   "showHouse" INT REFERENCES "ShowHouses"(id)
 );
 
 CREATE TABLE "ShowHouseSeatAreas" (
-  name VARCHAR(127),
   capacity INT,
   reserved INT,
   occupied INT,
@@ -41,14 +41,12 @@ CREATE TABLE "ShowHouseSeatAreas" (
 ) INHERITS ("ShowHouseSeats");
 
 CREATE TABLE "ShowHouseNumberedSeats" (
-  number VARCHAR(15),
   reserved BOOLEAN,
   occupied BOOLEAN,
   location POINT
 ) INHERITS ("ShowHouseSeats");
 
 CREATE TABLE "ShowHouseFixtureAreas" (
-  name VARCHAR(127),
   "locationStart" POINT,
   "locationEnd" POINT
 ) INHERITS ("ShowHouseSeats");
@@ -66,11 +64,11 @@ CREATE TABLE "Events" (
 
 CREATE TABLE "Seats" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  name VARCHAR(127),
   event INT REFERENCES "Events"(id)
 );
 
 CREATE TABLE "GenericSeats" (
-  name VARCHAR(127),
   capacity INT,
   reserved INT,
   occupied INT
@@ -82,7 +80,6 @@ CREATE TABLE "SeatAreas" (
 ) INHERITS ("GenericSeats");
 
 CREATE TABLE "NumberedSeats" (
-  number VARCHAR(15),
   reserved BOOLEAN,
   occupied BOOLEAN,
   location POINT

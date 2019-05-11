@@ -44,7 +44,7 @@ WITH
       event,
       JSON_AGG(JSON_BUILD_OBJECT(
         'id', id,
-        'number', number,
+        'name', name,
         'location', location,
         'reserved', reserved,
         'occupied', occupied

@@ -52,7 +52,7 @@ const numberedSeatMapper = ({
   reservations, purchases, prices,
   setHoveredSeat, setSelectedSeat,
 }) => ({
-  id, number, location,
+  id, location,
 }) => {
   const uid = useSelector(state => state.login.data.uid)
   // z-index must be set so popover doesn't go over item
@@ -63,7 +63,6 @@ const numberedSeatMapper = ({
 
   const popoverContent = (
     <NumberedSeatPopoverContent
-      number={number}
       seat={id}
       event={event}
       reservation={reservation}

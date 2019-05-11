@@ -12,7 +12,7 @@ import {
 
 // reserve/un-reserve with word click
 const NumberedSeatPopoverContent = ({
-  seatInfo: { number, id: seat },
+  seatInfo: { name, id: seat },
   eventInfo: { id: event },
   pricing, reservation, purchase,
   price: selectedPrice,
@@ -44,7 +44,7 @@ const NumberedSeatPopoverContent = ({
   return (
     <>
       <Title>
-        Seat #{ number }
+        Seat #{ name }
         {purchase
           ? <NotAvailable> &nbsp;&nbsp; Occupied </NotAvailable>
           : reservation && !isOwner && <NotAvailable> &nbsp;&nbsp; Reserved </NotAvailable>
@@ -64,7 +64,7 @@ NumberedSeatPopoverContent.propTypes = {
   }).isRequired,
   seatInfo: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    number: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   pricing: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

@@ -42,11 +42,10 @@ const SelectedSeatInfo = ({ event, seatInfo, price, pricing, onPrice }) => {
   const removeSeatFromCart = useActions(s => removeSeatFromCartAction(s, 'numberedSeat'))
   const priceInfo = pricing.find(pr => pr.id === price)
   if (!priceInfo || !seatInfo) return <Loader />
-  const title = seatInfo.number || seatInfo.name
   onPrice(priceInfo.price)
   return (
     <Container>
-      <Title> { title } </Title>
+      <Title> { seatInfo.name } </Title>
       <PriceName> { priceInfo.name } </PriceName>
       <PriceValue> ${ priceInfo.price } </PriceValue>
       <RemoveButton size={14} onClick={() => removeSeatFromCart({ event, seat: seatInfo.id })}>
@@ -60,7 +59,6 @@ SelectedSeatInfo.propTypes = {
   event: PropTypes.number.isRequired,
   seatInfo: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    number: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
   price: PropTypes.number,

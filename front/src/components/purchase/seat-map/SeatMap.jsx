@@ -105,7 +105,7 @@ SeatMap.propTypes = {
   })),
   numberedSeats: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    number: PropTypes.string,
+    name: PropTypes.string,
     location: PropTypes.string.isRequired,
     reserved: PropTypes.bool.isRequired,
     occupied: PropTypes.bool.isRequired,
