@@ -10,38 +10,44 @@ const didRequestWork = (response) => {
     return false
   }
 }
-export const addSeatToCart = (cartSeat, type) => async (dispatch) => {
+
+const eventUrl = (type, add = true) => {
+  const remove = add ? '' : 'un-'
   switch (type) {
-    case 'numberedSeat': {
-      showToastMessage({ message: 'Reserving Seat...', title: 'Reservation', timeout: 3000 })
-      const response = await request('/event/reservation.reserve-numbered-seat', cartSeat, 'POST', { parseAsQuery: false })
-      const worked = didRequestWork(response)
-      if (worked) {
-        showToastMessage({ message: 'Successful', title: 'Reservation', type: 'success' })
-        dispatch(sync.addSeatToCartSync(cartSeat))
-      } else {
-        showToastMessage({ message: 'Failed (check your internet connection)', title: 'Reservation', type: 'failure' })
-      }
-      break
-    }
-    default: break
+    case 'numberedSeat': return `/event/reservation.${remove}reserve-numbered-seat`
+    case 'genericSeat':
+    case 'seatArea':
+      return `/event/reservation.${remove}reserve-seat-area`
+    default: return null
+  }
+}
+
+export const addSeatToCart = (cartSeat, type) => async (dispatch) => {
+  const url = eventUrl(type, true)
+  if (!url) return
+
+  showToastMessage({ message: 'Reserving Seat...', title: 'Reservation', timeout: 3000 })
+  const response = await request(url, cartSeat, 'POST', { parseAsQuery: false })
+  const worked = didRequestWork(response)
+  if (worked) {
+    showToastMessage({ message: 'Successful', title: 'Reservation', type: 'success' })
+    dispatch(sync.addSeatToCartSync(cartSeat))
+  } else {
+    showToastMessage({ message: 'Failed (check your internet connection)', title: 'Reservation', type: 'failure' })
   }
 }
 
 export const removeSeatFromCart = (cartSeat, type, usePricing = false) => async (dispatch) => {
-  switch (type) {
-    case 'numberedSeat': {
-      showToastMessage({ message: 'Removing', title: 'Reservation', timeout: 3000 })
-      const response = await request('/event/reservation.un-reserve-numbered-seat', cartSeat, 'POST', { parseAsQuery: false })
-      const worked = didRequestWork(response)
-      if (worked) {
-        showToastMessage({ message: 'Removed', title: 'Reservation', type: 'success' })
-        dispatch(sync.removeSeatFromCartSync(cartSeat, usePricing))
-      } else {
-        showToastMessage({ message: 'Failed to remove (check your internet connection)', title: 'Reservation', type: 'failure' })
-      }
-      break
-    }
-    default: break
+  const url = eventUrl(type, false)
+  if (!url) return
+
+  showToastMessage({ message: 'Removing', title: 'Reservation', timeout: 3000 })
+  const response = await request(url, cartSeat, 'POST', { parseAsQuery: false })
+  const worked = didRequestWork(response)
+  if (worked) {
+    showToastMessage({ message: 'Removed', title: 'Reservation', type: 'success' })
+    dispatch(sync.removeSeatFromCartSync(cartSeat, usePricing))
+  } else {
+    showToastMessage({ message: 'Failed to remove (check your internet connection)', title: 'Reservation', type: 'failure' })
   }
 }
