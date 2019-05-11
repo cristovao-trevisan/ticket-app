@@ -3,7 +3,6 @@ name: reserve-numbered-seat
 eventGroup: reservation
 version: 0.0.1
 model:
-  event: Number
   seat: Number
   price: Number
   auth:
@@ -18,14 +17,22 @@ filters:
         id: do-reserve
         async: false
         type: API
-        action: POST
+        action: GET
         operation: null
-        serviceAccountId: functions-reservation
+        serviceAccountId: query-api-proxy
         template:
-          path: /reserve
-          payload:
-            event: '{event}'
+          path: /reserve-numbered-seat
+          query:
             seat: '{seat}'
-            price: '{price}'
-            auth:
-              uid: '{auth.uid}'
+            auth_uid: '{auth.uid}'
+        onSuccess:
+          -
+            eventId: reservation.on-numbered-seat-change
+            payload:
+              price: '{request.price}'
+              event: '{response.data.data[0].event}'
+              user: '{response.data.data[0].user}'
+              seat: '{response.data.data[0].seat}'
+              reserved: '{response.data.data[0].reserved}'
+              auth:
+                uid: '{request.auth.uid}'

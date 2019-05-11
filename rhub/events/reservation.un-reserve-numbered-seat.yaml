@@ -3,7 +3,6 @@ name: un-reserve-numbered-seat
 eventGroup: reservation
 version: 0.0.1
 model:
-  event: Number
   seat: Number
   auth:
     uid: String
@@ -17,13 +16,21 @@ filters:
         id: do-un-reserve
         async: false
         type: API
-        action: POST
+        action: GET
         operation: null
-        serviceAccountId: functions-reservation
+        serviceAccountId: query-api-proxy
         template:
-          path: /un-reserve
-          payload:
-            event: '{event}'
+          path: /un-reserve-numbered-seat
+          query:
             seat: '{seat}'
-            auth:
-              uid: '{auth.uid}'
+            auth_uid: '{auth.uid}'
+        onSuccess:
+          -
+            eventId: reservation.on-numbered-seat-change
+            payload:
+              user: '{response.data.data[0].user}'
+              seat: '{response.data.data[0].seat}'
+              reserved: '{response.data.data[0].reserved}'
+              event: '{response.data.data[0].event}'
+              auth:
+                uid: '{request.auth.uid}'

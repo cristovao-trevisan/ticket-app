@@ -1,0 +1,25 @@
+# params: seat, auth_uid
+id: un-reserve-numbered-seat
+scope: event
+serviceAccountId: amazon-postgres-rds
+query: >
+  WITH
+    variables AS (
+      SELECT
+        '{auth_uid}' AS inputUser,
+        {seat} AS inputSeat
+    ),
+    reservation AS (
+      DELETE FROM "NumberedSeatsReservations" reservation
+      USING variables
+      WHERE reservation.seat = variables.inputSeat
+        AND reservation.user = variables.inputUser
+      RETURNING reservation.seat, reservation.user
+    )
+
+  UPDATE "NumberedSeats" seat
+  SET reserved = FALSE
+  FROM reservation
+  WHERE reservation.seat = seat.id
+  RETURNING reservation.seat, seat.event, reservation.user, FALSE AS reserved
+  ;

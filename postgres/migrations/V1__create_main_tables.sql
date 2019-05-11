@@ -101,6 +101,12 @@ CREATE TABLE "GenericSeatsReservations" (
     PRIMARY KEY (seat, "user")
 );
 
+CREATE TABLE "NumberedSeatsReservations" (
+  "user" VARCHAR(128) NOT NULL REFERENCES "Users"(uid),
+  seat INT NOT NULL,
+    PRIMARY KEY (seat, "user")
+);
+
 CREATE TABLE "Pricings" (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
   name VARCHAR(127),

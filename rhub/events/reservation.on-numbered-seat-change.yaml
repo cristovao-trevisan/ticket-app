@@ -1,0 +1,79 @@
+id: reservation.on-numbered-seat-change
+name: on-numbered-seat-change
+eventGroup: reservation
+version: 0.0.1
+model:
+  event: Number
+  seat: Number
+  user: Number
+  price: Number
+  reserved: Boolean
+  auth:
+    uid: String
+filters:
+  -
+    id: on-reserve
+    name: onReserve
+    condition: 'reserved = true'
+    actions:
+      -
+        id: firestore-event
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/events/{event}'
+          merge: true
+          payload:
+            reservations:
+              '{seat}': '{auth.uid}'
+            prices:
+              '{seat}': '{price}'
+      -
+        id: firestore-user
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/users/{auth.uid}'
+          merge: true
+          payload:
+            numberedSeatsPrice:
+              '{seat}': '{price}'
+  -
+    id: on-un-reserve
+    name: onUnReserve
+    condition: 'reserved = false'
+    actions:
+      -
+        id: firestore-event
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/events/{event}'
+          merge: true
+          payload:
+            reservations:
+              '{seat}': false
+            prices:
+              '{seat}': 0
+      -
+        id: firestore-user
+        async: false
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/users/{auth.uid}'
+          merge: true
+          payload:
+            numberedSeatsPrice:
+              '{seat}': false
