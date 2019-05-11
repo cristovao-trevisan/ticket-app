@@ -13,7 +13,7 @@ import { FullLoader } from './load/Loader'
 
 const SignIn = Loadable(() => import('./auth/SignIn'))
 const Event = Loadable(() => import('./event/Event'))
-const Purchase = Loadable(() => import('./purchase/SeatSelection'))
+const Purchase = Loadable(() => import('./purchase/Purchase'))
 
 const Container = styled.div`
   width: 100%;

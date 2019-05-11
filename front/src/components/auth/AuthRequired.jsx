@@ -25,7 +25,7 @@ const WarningIcon = styled(MdWarning)`
 const AuthRequired = ({ children }) => {
   const login = useSelector(state => state.login)
   if (login.loading) return <FullLoader />
-  if (login.data) return children
+  if (login.data && login.data.uid) return children
 
   return (
     <>

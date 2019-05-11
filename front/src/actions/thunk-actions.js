@@ -4,7 +4,8 @@ import showToastMessage from '../extra/show-toast-message'
 
 const didRequestWork = (response) => {
   try {
-    return response.match_rules[0].actions[0].response.responseCode === 201
+    return response.match_rules[0].actions[0].response.responseCode < 300
+      && response.match_rules[0].actions[0].response.responsePayload.data.data.length > 0
   } catch (err) {
     return false
   }

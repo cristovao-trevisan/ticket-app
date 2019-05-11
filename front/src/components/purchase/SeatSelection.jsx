@@ -8,7 +8,6 @@ import useEventStateEffect from '../../hooks/use-event-state-effect'
 import { addSeatToCartSync, removeSeatFromCartSync } from '../../actions/thunk-sync-actions'
 import GoToCart from './GoToCart'
 import SeatMap from './seat-map/SeatMap'
-import AuthRequired from '../auth/AuthRequired'
 import SelectedSeats from './SelectedSeats'
 import SeatMapConvention from './seat-map-convention/SeatMapConvention'
 import { FullLoader } from '../load/Loader'
@@ -38,39 +37,37 @@ const SeatSelection = ({ match }) => {
   }
 
   return (
-    <AuthRequired>
-      <NamespacedResources
-        ids={['eventInfo', 'eventSeats']}
-        namespace={event}
-        render={({ eventSeats }, state) => {
-          if (state.loading || !stateLoaded) return <FullLoader />
-          if (state.loaded) {
-            return (
-              <>
-                <SeatMap
-                  event={event}
-                  fixtureAreas={eventSeats.data.fixtureAreas}
-                  numberedSeats={eventSeats.data.numberedSeats}
-                  seatAreas={eventSeats.data.seatAreas}
-                  reservations={reservations}
-                  purchases={purchases}
-                  prices={prices}
-                />
-                <SeatMapConvention />
-                <SelectedSeats
-                  event={event}
-                  prices={prices}
-                  reservations={reservations}
-                />
-                {hasReservation && <GoToCart onClick={sendReservationsToCart} />}
-              </>
-            )
-          }
+    <NamespacedResources
+      ids={['eventInfo', 'eventSeats']}
+      namespace={event}
+      render={({ eventSeats }, state) => {
+        if (state.loading || !stateLoaded) return <FullLoader />
+        if (state.loaded) {
+          return (
+            <>
+              <SeatMap
+                event={event}
+                fixtureAreas={eventSeats.data.fixtureAreas}
+                numberedSeats={eventSeats.data.numberedSeats}
+                seatAreas={eventSeats.data.seatAreas}
+                reservations={reservations}
+                purchases={purchases}
+                prices={prices}
+              />
+              <SeatMapConvention />
+              <SelectedSeats
+                event={event}
+                prices={prices}
+                reservations={reservations}
+              />
+              {hasReservation && <GoToCart onClick={sendReservationsToCart} />}
+            </>
+          )
+        }
 
-          return <div> Error </div>
-        }}
-      />
-    </AuthRequired>
+        return <div> Error </div>
+      }}
+    />
   )
 }
 SeatSelection.propTypes = {
