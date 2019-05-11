@@ -27,8 +27,10 @@ filters:
           path: '/events/{event}'
           merge: true
           payload:
-            reserved: '{reserved}'
-            occupied: '{occupied}'
+            areas:
+              '{seat}':
+                reserved: '{reserved}'
+                occupied: '{occupied}'
       -
         id: firestore-user
         async: false
