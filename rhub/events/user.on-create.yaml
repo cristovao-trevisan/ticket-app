@@ -1,0 +1,45 @@
+id: user.on-create
+name: on-create
+eventGroup: user
+version: 0.0.1
+model:
+  displayName: String
+  email: String
+  uid: String
+filters:
+  -
+    id: on-event
+    name: onEvent
+    condition: null
+    actions:
+      -
+        id: postgres-insert
+        async: true
+        type: POSTGRES
+        action: INSERT
+        operation: null
+        serviceAccountId: amazon-postgres-rds
+        template:
+          database: ticket-app
+          table: Users
+          onConflict:
+            constraint: uid
+            statement: 'DO NOTHING'
+          payload:
+            fullName: '{displayName}'
+            email: '{email}'
+            uid: '{uid}'
+      -
+        id: firestore-set
+        async: true
+        type: GCP
+        action: FIRESTORE
+        operation: set
+        serviceAccountId: google
+        template:
+          path: '/users/{uid}'
+          merge: true
+          payload:
+            fullName: '{displayName}'
+            email: '{email}'
+            uid: '{uid}'

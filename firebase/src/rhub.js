@@ -14,10 +14,12 @@ export const makeRhubRequest = async (url, method, bd, response) => {
     const body = method === 'GET' ? undefined : JSON.stringify(bd)
     if (body) headers['Content-Type'] = 'application/json'
     const res = await got(`${RHUB_URL}${url}`, { method, body, headers })
-    response.status(res.statusCode).send(res.body);
+    if (response) response.status(res.statusCode).send(res.body)
+    return res
   }
   catch (err) {
     console.error('request failed', err);
-    response.status(err.statusCode || 500).send(err.response && err.response.body);
+    if (response) response.status(err.statusCode || 500).send(err.response && err.response.body)
+    else throw err
   }
 }

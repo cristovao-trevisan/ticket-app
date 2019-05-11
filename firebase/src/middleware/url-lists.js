@@ -11,6 +11,7 @@ const BLACK_LIST = [
   '/query/reserve-seat-area',
   '/query/un-reserve-numbered-seat',
   '/query/un-reserve-seat-area',
+  'event/user.on-create',
 ]
 export const whiteList = (rawUrl) => {
   const url = rawUrl.replace(/\?.*/, '')

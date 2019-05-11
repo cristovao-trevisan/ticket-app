@@ -12,7 +12,7 @@ CREATE TABLE "Users" (
   uid VARCHAR(128) PRIMARY KEY,
   email VARCHAR(127) UNIQUE NOT NULL,
   birth VARCHAR(15),
-  "fullName" VARCHAR(127) NOT NULL,
+  "fullName" VARCHAR(127),
   gender VARCHAR(15),
   address ADDRESS
 );

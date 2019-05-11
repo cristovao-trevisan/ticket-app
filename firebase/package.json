@@ -10,7 +10,7 @@
     "build": "babel src --out-dir dist --source-maps",
     "predeploy": "npm run build",
     "start": "babel-watch src/index.js",
-    "deploy": "firebase deploy --only functions:authGateway,functions:reservation",
+    "deploy": "firebase deploy --only functions:authGateway,functions:onUserCreate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
