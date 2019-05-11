@@ -42,5 +42,5 @@ filters:
           path: '/users/{auth.uid}'
           merge: true
           payload:
-            seatAreas:
+            seatAreasAmount:
               '{seat}': '{amount}'

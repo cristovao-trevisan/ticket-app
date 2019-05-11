@@ -9,16 +9,11 @@ export default (event) => {
   const [areasState, setAreas] = useState(null)
   useEffect(() => firestore().doc(`/events/${event}`).onSnapshot((snapshot) => {
     if (snapshot.exists) {
-      const {
-        reservations = {},
-        purchases = {},
-        prices = {},
-        areas = {},
-      } = snapshot.data()
-      setReservations(reservations)
-      setPurchases(purchases)
-      setPrices(prices)
-      setAreas(areas)
+      const { reservations, purchases, prices, areas } = snapshot.data()
+      setReservations(reservations || {})
+      setPurchases(purchases || {})
+      setPrices(prices || {})
+      setAreas(areas || {})
     } else {
       setReservations({})
       setPurchases({})
@@ -27,7 +22,9 @@ export default (event) => {
     }
   }), [event])
 
+  const stateLoaded = !!(reservationsState && purchasesState && pricesState && areasState)
   return [
+    stateLoaded,
     reservationsState,
     purchasesState,
     pricesState,

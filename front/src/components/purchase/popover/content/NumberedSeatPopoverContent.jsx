@@ -10,7 +10,6 @@ import {
   removeSeatFromCart as removeSeatFromCartAction,
 } from '../../../../actions/thunk-actions'
 
-// reserve/un-reserve with word click
 const NumberedSeatPopoverContent = ({
   seatInfo: { name, id: seat },
   eventInfo: { id: event },
@@ -18,8 +17,8 @@ const NumberedSeatPopoverContent = ({
   price: selectedPrice,
 }) => {
   // redux
-  const addSeatToCart = useActions(s => addSeatToCartAction(s, 'numberedSeat'))
-  const removeSeatFromCart = useActions(s => removeSeatFromCartAction(s, 'numberedSeat'))
+  const addSeatToCart = useActions(s => addSeatToCartAction(s, 'numberedSeats'))
+  const removeSeatFromCart = useActions(s => removeSeatFromCartAction(s, 'numberedSeats'))
   const uid = useSelector(state => state.login.data.uid)
   // computed
   const isOwner = reservation === uid || purchase === uid

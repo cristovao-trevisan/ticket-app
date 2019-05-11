@@ -25,10 +25,7 @@ const Container = styled.div`
 const Title = styled.div`
   font-weight: bold;
 `
-const PriceName = styled.div`
-  margin-left: 16px;
-`
-const PriceValue = styled.div`
+const Value = styled.div`
   margin-left: 16px;
 `
 const RemoveButton = styled(FlatIconButton)`
@@ -38,26 +35,25 @@ const RemoveButton = styled(FlatIconButton)`
   border-style: solid;
 `
 
-const SelectedSeatInfo = ({ event, seatInfo, price, pricing, onPrice, origin }) => {
-  const removeSeatFromCart = useActions(s => removeSeatFromCartAction(s, origin))
-  const priceInfo = pricing.find(pr => pr.id === price)
-  if (!priceInfo || !seatInfo) return <Loader />
+const SelectedSeatAreaInfo = ({ event, seatInfo, price, pricing, onPrice, amount }) => {
+  const removeSeatFromCart = useActions(s => removeSeatFromCartAction(s, 'seatAreas', !!price))
+  const priceInfo = pricing.find(pr => pr.id === price) || pricing[0]
+  if ((price && !priceInfo) || !seatInfo) return <Loader />
   onPrice(priceInfo.price)
-
   return (
     <Container>
       <Title> { seatInfo.name } </Title>
-      <PriceName> { priceInfo.name } </PriceName>
-      <PriceValue> ${ priceInfo.price } </PriceValue>
-      <RemoveButton size={14} onClick={() => removeSeatFromCart({ event, seat: seatInfo.id, amount: 1 })}>
+      <Value> x{ amount } </Value>
+      {price && <Value> ${ priceInfo.price } </Value>}
+      <RemoveButton size={14} onClick={() => removeSeatFromCart({ event, seat: seatInfo.id, amount })}>
         <MdClear />
       </RemoveButton>
     </Container>
   )
 }
 
-SelectedSeatInfo.propTypes = {
-  origin: PropTypes.string.isRequired,
+SelectedSeatAreaInfo.propTypes = {
+  amount: PropTypes.number.isRequired,
   event: PropTypes.number.isRequired,
   seatInfo: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -71,9 +67,9 @@ SelectedSeatInfo.propTypes = {
   })).isRequired,
   onPrice: PropTypes.func,
 }
-SelectedSeatInfo.defaultProps = {
-  price: 0,
+SelectedSeatAreaInfo.defaultProps = {
+  price: undefined,
   onPrice: () => {},
 }
 
-export default withEventSeatInfo(SelectedSeatInfo)
+export default withEventSeatInfo(SelectedSeatAreaInfo)

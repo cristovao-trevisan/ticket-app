@@ -27,8 +27,8 @@ export default (Component) => {
         if (state.loaded) {
           // pricing
           const pricing = eventSeats.data.pricings
-            .find(pr => pr.seat === props.seat)
-            .pricing.map(id => eventInfo.data.pricing.find(pr => pr.id === id))
+            .find(pr => pr.seat === props.seat).pricing
+            .map(id => eventInfo.data.pricing.find(pr => pr.id === id))
           // seat info
           const { info, origin } = findSeatInfo(eventSeats, props.seat)
 

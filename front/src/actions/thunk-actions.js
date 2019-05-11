@@ -14,9 +14,9 @@ const didRequestWork = (response) => {
 const eventUrl = (type, add = true) => {
   const remove = add ? '' : 'un-'
   switch (type) {
-    case 'numberedSeat': return `/event/reservation.${remove}reserve-numbered-seat`
-    case 'genericSeat':
-    case 'seatArea':
+    case 'numberedSeats': return `/event/reservation.${remove}reserve-numbered-seat`
+    case 'genericSeats':
+    case 'seatAreas':
       return `/event/reservation.${remove}reserve-seat-area`
     default: return null
   }

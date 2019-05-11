@@ -42,7 +42,7 @@ const Container = styled.div`
 // Main component
 const SeatMap = ({
   fixtureAreas, seatAreas, numberedSeats, event,
-  reservations, purchases, prices,
+  reservations, purchases, prices, areas,
 }) => {
   // state and redux variables
   const dimensions = useSelector(state => state.dimensions)
@@ -59,7 +59,7 @@ const SeatMap = ({
   // generate items
   const mappingData = {
     multiplier, popoverSeat, event,
-    reservations, purchases, prices,
+    reservations, purchases, prices, areas,
     setHoveredSeat, setSelectedSeat,
   }
   const FixtureAreas = fixtureAreas.map(fixtureAreaMapper({ multiplier }))
@@ -85,6 +85,7 @@ const SeatMap = ({
 
 SeatMap.propTypes = {
   event: PropTypes.number.isRequired,
+  areas: PropTypes.shape({}).isRequired,
   reservations: PropTypes.shape({}).isRequired,
   purchases: PropTypes.shape({}).isRequired,
   prices: PropTypes.shape({}).isRequired,

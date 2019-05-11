@@ -6,9 +6,9 @@ import CartEventTitle from './CartEventTitle'
 import { signature } from '../../constants/colors'
 
 const byAscSeatId = (a, b) => (a > b ? 1 : -1)
-const cartSeatMapper = onPrice => cartSeat => (
+const cartSeatMapper = onPrice => (cartSeat, index) => (
   <SelectedSeatInfo
-    key={cartSeat.seat}
+    key={`${cartSeat.seat} - ${index}`}
     {...cartSeat}
     onPrice={onPrice(cartSeat.seat)}
   />
@@ -25,12 +25,12 @@ const Total = styled.div`
 
 const Cart = () => {
   const { cartSeats } = useSelector(state => state.cart)
-  const [totalPrice, setTotalPrice] = useState(0)
-  const prices = {}
+  const [prices, setPrices] = useState({})
   const onPrice = seat => (price) => {
-    prices[seat] = price
-    setTotalPrice(Object.values(prices).reduce((a, b) => a + b))
+    if (prices[seat] === price) return // prevent loop
+    setPrices({ ...prices, [seat]: price })
   }
+  const totalPrice = Object.values(prices).reduce((a, b) => a + b, 0)
   const cartSeatsByEventMap = cartSeats
     .sort(byAscSeatId)
     .reduce((acc, cartSeat) => {
