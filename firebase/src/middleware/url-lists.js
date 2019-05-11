@@ -5,9 +5,12 @@ const WHITE_LIST = [
   '/query/top-tags',
 ]
 const BLACK_LIST = [
-  '/event/reservation.do-reserve-numbered-seat',
-  '/event/reservation.do-un-reserve-numbered-seat',
+  '/event/reservation.on-numbered-seat-change',
   '/event/reservation.on-seat-area-amount-change',
+  '/query/reserve-numbered-seat',
+  '/query/reserve-seat-area',
+  '/query/un-reserve-numbered-seat',
+  '/query/un-reserve-seat-area',
 ]
 export const whiteList = (rawUrl) => {
   const url = rawUrl.replace(/\?.*/, '')
