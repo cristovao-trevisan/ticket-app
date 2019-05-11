@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useActions } from 'react-redux'
 import { NamespacedResources } from '@async-resource/react-redux'
 
-import useEventStateEffect from '../../hooks/use-event-state-effect'
+import useEventState from '../../hooks/use-event-state'
 import { addSeatToCartSync, removeSeatFromCartSync } from '../../actions/thunk-sync-actions'
 import GoToCart from './GoToCart'
 import SeatMap from './seat-map/SeatMap'
@@ -18,10 +18,7 @@ const SeatSelection = ({ match }) => {
   const addSeatToCart = useActions(cartSeat => addSeatToCartSync(cartSeat))
   const removeSeatFromCart = useActions(cartSeat => removeSeatFromCartSync(cartSeat, true))
   const uid = useSelector(state => state.login.data.uid)
-  const [reservations, setReservations] = useState(null)
-  const [purchases, setPurchases] = useState(null)
-  const [prices, setPrices] = useState(null)
-  useEventStateEffect(event, { setReservations, setPurchases, setPrices })
+  const [reservations, purchases, prices, areas] = useEventState(event)
 
   // computed
   const stateLoaded = !!(reservations && purchases && prices)
@@ -53,6 +50,7 @@ const SeatSelection = ({ match }) => {
                 reservations={reservations}
                 purchases={purchases}
                 prices={prices}
+                areas={areas}
               />
               <SeatMapConvention />
               <SelectedSeats
